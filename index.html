@@ -3,1012 +3,1105 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Precision Coatings of Texas | Floor Coating Specialists — Austin, TX</title>
+<title>Precision Coatings of Texas — Surface Refinishing Specialists | Austin, TX</title>
+<meta name="description" content="Austin's premier surface coating specialists. Garages, patios, tile, tubs, vanities, countertops & cabinets. Free estimates — 512-537-7951.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ==============================
-   DESIGN TOKENS — RED / BLACK / SILVER
-============================== */
+/* ═══════════════ DESIGN TOKENS ═══════════════ */
 :root {
-  --black:      #080808;
-  --dark:       #0e0e0e;
-  --surface:    #141414;
-  --card:       #1a1a1a;
-  --border:     #242424;
-  --border-lt:  #2e2e2e;
-  --red:        #c0121c;
-  --red-hot:    #e01a24;
-  --red-dim:    rgba(192,18,28,.13);
-  --red-glow:   rgba(192,18,28,.06);
-  --silver:     #b4b8c0;
-  --silver-lt:  #d4d8e0;
-  --silver-dim: rgba(180,184,192,.10);
-  --white:      #f0f0f0;
-  --muted:      #6a6a6a;
-  --text:       #c0c0c0;
-  --cdn:        'https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/';
+  --bg:        #08090b;
+  --bg2:       #0d0e11;
+  --surface:   #131419;
+  --card:      #181a20;
+  --card2:     #1e2028;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.12);
+  --red:       #d4141f;
+  --red2:      #f01c28;
+  --red-dim:   rgba(212,20,31,0.10);
+  --red-glow:  rgba(212,20,31,0.25);
+  --chrome:    #c2c6ce;
+  --chrome2:   #e2e5ea;
+  --silver:    #8b8f99;
+  --white:     #f1f2f5;
+  --muted:     #565a64;
+  --text:      #aab0ba;
+  --font:      'Outfit', system-ui, sans-serif;
+  --mono:      'DM Mono', monospace;
+  --ease:      cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* BASE */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none;}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior:auto; }
+  *,*::before,*::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+}
+body {
+  font-family:var(--font); background:var(--bg); color:var(--text);
+  overflow-x:hidden; -webkit-font-smoothing:antialiased;
+}
+::selection { background:var(--red); color:#fff; }
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.12); border-radius:3px; }
 
 /* Grain */
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.028;pointer-events:none;z-index:999;}
+body::after {
+  content:''; position:fixed; inset:0; z-index:2000; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:0.02;
+}
 
-/* CURSOR */
-#cur{width:10px;height:10px;background:var(--red);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s;}
-#curR{width:32px;height:32px;border:1.5px solid rgba(192,18,28,.45);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .12s ease;}
+/* Focus visibility — accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline:2px solid var(--red2); outline-offset:3px; border-radius:4px;
+}
 
-/* ==============================
-   NAV
-============================== */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:600;
-  height:70px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 56px;
-  background:rgba(8,8,8,.92);backdrop-filter:blur(28px);
+/* ═══════════════ NAV ═══════════════ */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:600;
+  height:68px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 clamp(20px, 4vw, 48px);
+  background:rgba(8,9,11,0.8); backdrop-filter:blur(24px) saturate(1.4);
   border-bottom:1px solid var(--border);
 }
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.logo-mark{width:28px;height:28px;background:var(--red);clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);flex-shrink:0;}
-.logo-txt{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:3.5px;color:var(--white);}
-.logo-txt span{color:var(--red);}
-.nav-links{display:flex;gap:34px;list-style:none;}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:11.5px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;transition:color .2s;}
-.nav-links a:hover{color:var(--silver-lt);}
-.nav-right{display:flex;align-items:center;gap:20px;}
-.nav-tel{color:var(--silver);font-size:13px;font-weight:600;text-decoration:none;letter-spacing:.3px;transition:color .2s;}
-.nav-tel:hover{color:var(--white);}
-.nav-cta{
-  background:var(--red);color:#fff;padding:10px 24px;
-  font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  text-decoration:none;
-  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));
-  transition:background .2s;
+.nav-brand { display:flex; align-items:center; gap:11px; text-decoration:none; }
+.nav-brand-text { line-height:1.05; }
+.nav-name { font-size:14px; font-weight:800; letter-spacing:2.5px; color:var(--white); text-transform:uppercase; }
+.nav-name em { color:var(--red2); font-style:normal; }
+.nav-tag { font-size:8.5px; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-top:2px; }
+.nav-links { display:flex; gap:30px; list-style:none; }
+.nav-links a {
+  color:var(--silver); text-decoration:none; font-size:12.5px; font-weight:500;
+  letter-spacing:0.8px; transition:color .2s; padding:8px 0;
 }
-.nav-cta:hover{background:var(--red-hot);}
-
-/* ==============================
-   HERO
-============================== */
-.hero{
-  min-height:100vh;position:relative;
-  display:flex;align-items:flex-end;overflow:hidden;
+.nav-links a:hover { color:var(--white); }
+.nav-right { display:flex; align-items:center; gap:14px; }
+.nav-phone {
+  color:var(--chrome); font-size:13px; font-weight:600; text-decoration:none;
+  font-family:var(--mono); transition:color .2s; padding:10px 4px;
 }
-.hero-bg{position:absolute;inset:0;}
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;}
-.hero-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(110deg,rgba(8,8,8,.96) 0%,rgba(8,8,8,.78) 48%,rgba(8,8,8,.25) 100%);
+.nav-phone:hover { color:var(--white); }
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  border:none; cursor:pointer; text-decoration:none;
+  font-family:var(--font); font-weight:600; letter-spacing:0.4px;
+  border-radius:10px; transition:all .22s var(--ease);
+  min-height:44px; /* a11y touch target */
 }
-/* Red left stripe */
-.hero-stripe{position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,transparent 0%,var(--red) 25%,var(--red) 75%,transparent 100%);}
-/* Silver right accent line */
-.hero-stripe-r{position:absolute;top:0;right:0;width:1px;height:100%;background:linear-gradient(180deg,transparent 0%,var(--border-lt) 30%,var(--border-lt) 70%,transparent 100%);}
-
-.hero-inner{position:relative;z-index:2;padding:140px 56px 96px;max-width:820px;}
-
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:10px;
-  font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
-  color:var(--red);margin-bottom:26px;
-  animation:fadeUp .7s ease both;
+.btn-red {
+  background:var(--red); color:#fff; padding:12px 26px; font-size:13.5px;
+  box-shadow:0 0 0 0 var(--red-glow);
 }
-.hero-eyebrow::before{content:'';width:26px;height:1px;background:var(--red);}
-
-h1.hero-h1{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(70px,9vw,128px);
-  line-height:.88;letter-spacing:2px;
-  color:var(--white);margin-bottom:22px;
-  animation:fadeUp .7s .1s ease both;
+.btn-red:hover { background:var(--red2); transform:translateY(-2px); box-shadow:0 10px 30px var(--red-glow); }
+.btn-ghost {
+  background:rgba(255,255,255,0.04); color:var(--chrome2); padding:12px 26px;
+  font-size:13.5px; border:1px solid var(--border2);
 }
-h1.hero-h1 .red{color:var(--red);}
-h1.hero-h1 .sil{color:var(--silver);}
+.btn-ghost:hover { background:rgba(255,255,255,0.08); color:var(--white); border-color:rgba(255,255,255,0.2); }
+.btn-sm { padding:9px 18px; font-size:12px; min-height:40px; }
+.btn-lg { padding:16px 34px; font-size:14.5px; }
 
-.hero-sub{
-  font-size:17px;font-weight:300;line-height:1.75;
-  color:rgba(192,192,192,.72);max-width:500px;margin-bottom:44px;
-  animation:fadeUp .7s .2s ease both;
+/* ═══════════════ HERO ═══════════════ */
+.hero {
+  min-height:100svh; position:relative; display:flex; align-items:center;
+  overflow:hidden; padding:110px clamp(20px,4vw,48px) 60px;
 }
-.hero-btns{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp .7s .3s ease both;}
+.hero-bg { position:absolute; inset:0; }
+.hero-bg img { width:100%; height:100%; object-fit:cover; object-position:center 35%; }
+.hero-veil {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 70% 90% at 25% 50%, rgba(8,9,11,0.5) 0%, transparent 100%),
+    linear-gradient(100deg, rgba(8,9,11,0.97) 0%, rgba(8,9,11,0.85) 40%, rgba(8,9,11,0.35) 75%, rgba(8,9,11,0.6) 100%),
+    linear-gradient(0deg, var(--bg) 0%, transparent 18%);
+}
+.hero-inner { position:relative; z-index:2; max-width:1280px; margin:0 auto; width:100%; }
+.hero-kicker {
+  display:inline-flex; align-items:center; gap:10px;
+  background:rgba(212,20,31,0.1); border:1px solid rgba(212,20,31,0.3);
+  border-radius:100px; padding:7px 18px;
+  font-size:11.5px; font-weight:600; letter-spacing:2px; text-transform:uppercase;
+  color:var(--red2); margin-bottom:30px;
+  animation:rise .8s var(--ease) both;
+}
+.hero-kicker::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--red2); animation:blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.25;} }
 
-.btn-red{
-  background:var(--red);color:#fff;border:none;
-  padding:16px 36px;font-family:'DM Sans',sans-serif;font-size:12.5px;
-  font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  cursor:pointer;text-decoration:none;
-  display:inline-flex;align-items:center;gap:9px;
-  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+h1.hero-title {
+  font-size:clamp(44px, 7.2vw, 96px); font-weight:800; line-height:1.0;
+  letter-spacing:-2.5px; color:var(--white); margin-bottom:26px; max-width:820px;
+  animation:rise .8s .08s var(--ease) both;
+}
+h1.hero-title .thin { font-weight:300; color:var(--chrome); }
+h1.hero-title .red { color:var(--red2); }
+
+.hero-sub {
+  font-size:clamp(15px, 1.6vw, 18px); font-weight:300; line-height:1.7;
+  color:var(--text); max-width:520px; margin-bottom:42px;
+  animation:rise .8s .16s var(--ease) both;
+}
+.hero-ctas { display:flex; gap:14px; flex-wrap:wrap; animation:rise .8s .24s var(--ease) both; }
+
+.hero-proof {
+  display:flex; gap:0; margin-top:70px; flex-wrap:wrap;
+  animation:rise .8s .36s var(--ease) both;
+}
+.proof-item { padding-right:42px; margin-right:42px; border-right:1px solid var(--border); }
+.proof-item:last-child { border-right:none; }
+.proof-num {
+  font-size:44px; font-weight:800; color:var(--white); line-height:1;
+  letter-spacing:-1.5px; display:block;
+}
+.proof-num em { color:var(--red2); font-style:normal; }
+.proof-lbl {
+  font-size:11px; font-weight:500; letter-spacing:2px; text-transform:uppercase;
+  color:var(--muted); margin-top:6px; display:block;
+}
+@keyframes rise { from{opacity:0; transform:translateY(28px);} to{opacity:1; transform:translateY(0);} }
+
+/* ═══════════════ MARQUEE STRIP ═══════════════ */
+.marquee-strip {
+  background:var(--red); overflow:hidden; padding:13px 0;
+  transform:rotate(-0.6deg) scale(1.02); position:relative; z-index:5;
+}
+.marquee-track { display:flex; gap:48px; white-space:nowrap; animation:scroll 28s linear infinite; width:max-content; }
+.marquee-item {
+  font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+  color:#fff; display:flex; align-items:center; gap:48px;
+}
+.marquee-item::after { content:'◆'; font-size:9px; opacity:0.6; }
+@keyframes scroll { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+/* ═══════════════ SECTIONS ═══════════════ */
+section { padding:clamp(70px,9vw,120px) clamp(20px,4vw,48px); position:relative; }
+.wrap { max-width:1280px; margin:0 auto; }
+.sec-head { margin-bottom:clamp(36px,5vw,60px); }
+.sec-kicker {
+  display:flex; align-items:center; gap:12px;
+  font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+  color:var(--red2); margin-bottom:16px;
+}
+.sec-kicker::before { content:''; width:32px; height:2px; background:var(--red); border-radius:1px; }
+.sec-title {
+  font-size:clamp(34px,4.6vw,62px); font-weight:800; line-height:1.04;
+  letter-spacing:-1.8px; color:var(--white);
+}
+.sec-title .thin { font-weight:300; color:var(--silver); }
+.sec-sub { font-size:15.5px; font-weight:300; line-height:1.7; color:var(--text); max-width:540px; margin-top:16px; }
+
+/* Reveal on scroll */
+.rv { opacity:0; transform:translateY(32px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.rv.in { opacity:1; transform:translateY(0); }
+
+/* ═══════════════ SERVICES BENTO ═══════════════ */
+.bento {
+  display:grid; gap:14px;
+  grid-template-columns:repeat(4, 1fr);
+  grid-template-rows:280px 280px;
+  grid-template-areas:
+    "garage garage patio tile"
+    "tubs vanity counter cabinet";
+}
+.b-garage{grid-area:garage;} .b-patio{grid-area:patio;} .b-tile{grid-area:tile;}
+.b-tubs{grid-area:tubs;} .b-vanity{grid-area:vanity;} .b-counter{grid-area:counter;} .b-cabinet{grid-area:cabinet;}
+
+.bento-cell {
+  position:relative; border-radius:18px; overflow:hidden; cursor:pointer;
+  border:1px solid var(--border); background:var(--surface);
+  transition:transform .35s var(--ease), border-color .3s;
+  display:block; text-decoration:none;
+}
+.bento-cell:hover { transform:translateY(-5px); border-color:rgba(212,20,31,0.4); }
+.bento-cell img {
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  filter:brightness(0.55) saturate(0.85); transition:filter .4s, transform .6s var(--ease);
+}
+.bento-cell:hover img { filter:brightness(0.75) saturate(1.05); transform:scale(1.05); }
+.bento-grad { position:absolute; inset:0; background:linear-gradient(180deg, transparent 30%, rgba(8,9,11,0.92) 100%); }
+.bento-content { position:absolute; left:0; right:0; bottom:0; padding:22px 24px; }
+.bento-name { font-size:21px; font-weight:700; color:var(--white); letter-spacing:-0.3px; }
+.bento-desc { font-size:12.5px; font-weight:300; color:var(--text); margin-top:5px; line-height:1.5; opacity:0; transform:translateY(8px); transition:all .3s var(--ease); }
+.bento-cell:hover .bento-desc { opacity:1; transform:translateY(0); }
+.bento-arrow {
+  position:absolute; top:18px; right:18px; width:38px; height:38px; border-radius:50%;
+  background:rgba(8,9,11,0.6); backdrop-filter:blur(8px);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--white); font-size:15px; border:1px solid var(--border2);
+  transition:all .3s var(--ease);
+}
+.bento-cell:hover .bento-arrow { background:var(--red); border-color:var(--red); transform:rotate(45deg); }
+.bento-tag {
+  position:absolute; top:18px; left:18px;
+  background:var(--red); color:#fff; font-size:10px; font-weight:700;
+  letter-spacing:1.5px; text-transform:uppercase; padding:5px 12px; border-radius:6px;
+}
+
+/* ═══════════════ BEFORE/AFTER SLIDER ═══════════════ */
+.ba-slider {
+  position:relative; border-radius:20px; overflow:hidden;
+  border:1px solid var(--border); aspect-ratio:16/8; max-height:560px;
+  cursor:ew-resize; user-select:none; touch-action:none;
+}
+.ba-img { position:absolute; inset:0; }
+.ba-img img { width:100%; height:100%; object-fit:cover; pointer-events:none; }
+.ba-before-wrap { z-index:1; }
+.ba-before-wrap img { filter:brightness(0.6) saturate(0.25); }
+.ba-after-wrap { z-index:2; clip-path:inset(0 0 0 50%); }
+.ba-divider {
+  position:absolute; top:0; bottom:0; left:50%; width:3px; z-index:3;
+  background:var(--red); transform:translateX(-50%);
+  box-shadow:0 0 24px var(--red-glow);
+}
+.ba-handle {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:4;
+  width:52px; height:52px; border-radius:50%;
+  background:var(--red); border:3px solid #fff;
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:15px; font-weight:700; letter-spacing:-2px;
+  box-shadow:0 8px 28px rgba(0,0,0,0.5);
+  pointer-events:none;
+}
+.ba-label {
+  position:absolute; top:20px; z-index:5; padding:7px 16px; border-radius:8px;
+  font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+  pointer-events:none;
+}
+.ba-label.before { left:20px; background:rgba(8,9,11,0.75); color:var(--silver); backdrop-filter:blur(8px); border:1px solid var(--border2); }
+.ba-label.after { right:20px; background:var(--red); color:#fff; }
+.ba-hint { text-align:center; margin-top:14px; font-size:12px; color:var(--muted); letter-spacing:1px; }
+
+/* ═══════════════ WORK GALLERY ═══════════════ */
+.work-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
+}
+.work-card {
+  position:relative; border-radius:16px; overflow:hidden; aspect-ratio:4/3;
+  border:1px solid var(--border); cursor:pointer;
+}
+.work-card.tall { grid-row:span 2; aspect-ratio:auto; }
+.work-card img {
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  filter:brightness(0.62) saturate(0.8); transition:filter .4s, transform .6s var(--ease);
+}
+.work-card:hover img { filter:brightness(0.85) saturate(1.05); transform:scale(1.06); }
+.work-info {
+  position:absolute; left:0; right:0; bottom:0; padding:18px 20px;
+  background:linear-gradient(transparent, rgba(8,9,11,0.92));
+  transform:translateY(8px); opacity:0; transition:all .35s var(--ease);
+}
+.work-card:hover .work-info { transform:translateY(0); opacity:1; }
+.work-type { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--red2); }
+.work-name { font-size:15px; font-weight:600; color:var(--white); margin-top:3px; }
+
+/* ═══════════════ PROCESS ═══════════════ */
+.process-band { background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.steps { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; counter-reset:step; }
+.step {
+  background:var(--surface); border:1px solid var(--border); border-radius:16px;
+  padding:30px 26px; position:relative; overflow:hidden;
+  transition:border-color .3s, transform .3s var(--ease);
+}
+.step:hover { border-color:rgba(212,20,31,0.35); transform:translateY(-4px); }
+.step::before {
+  counter-increment:step; content:"0" counter(step);
+  position:absolute; top:-14px; right:6px;
+  font-size:96px; font-weight:900; color:rgba(212,20,31,0.06); line-height:1;
+}
+.step-chip {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:42px; height:42px; border-radius:12px; background:var(--red-dim);
+  border:1px solid rgba(212,20,31,0.25); font-size:18px; margin-bottom:18px;
+}
+.step-name { font-size:17px; font-weight:700; color:var(--white); margin-bottom:9px; letter-spacing:-0.3px; }
+.step-desc { font-size:13px; font-weight:300; line-height:1.65; color:var(--text); }
+
+/* ═══════════════ TESTIMONIALS ═══════════════ */
+.testis { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.testi {
+  background:var(--surface); border:1px solid var(--border); border-radius:16px;
+  padding:30px 28px; position:relative; transition:border-color .3s;
+}
+.testi:hover { border-color:rgba(212,20,31,0.3); }
+.testi::before {
+  content:'"'; position:absolute; top:10px; right:22px;
+  font-size:80px; font-weight:900; color:rgba(212,20,31,0.1); line-height:1; font-family:Georgia,serif;
+}
+.testi-stars { color:var(--red2); font-size:14px; letter-spacing:3px; margin-bottom:16px; }
+.testi-text { font-size:14.5px; font-weight:300; line-height:1.75; color:var(--text); font-style:italic; margin-bottom:22px; }
+.testi-who { display:flex; align-items:center; gap:12px; }
+.testi-av {
+  width:42px; height:42px; border-radius:12px; flex-shrink:0;
+  background:linear-gradient(135deg, var(--red), #7a0a10);
+  display:flex; align-items:center; justify-content:center;
+  font-size:13px; font-weight:700; color:#fff;
+}
+.testi-name { font-size:13.5px; font-weight:600; color:var(--white); }
+.testi-loc { font-size:11.5px; color:var(--muted); margin-top:2px; }
+
+/* ═══════════════ CTA BAND ═══════════════ */
+.cta-band {
+  margin:0 clamp(20px,4vw,48px); border-radius:24px; overflow:hidden;
+  background:linear-gradient(120deg, var(--red) 0%, #8a0a12 100%);
+  padding:clamp(48px,6vw,80px) clamp(28px,5vw,72px);
+  display:flex; align-items:center; justify-content:space-between; gap:36px;
+  position:relative; flex-wrap:wrap;
+}
+.cta-band::before {
+  content:''; position:absolute; right:-140px; top:-140px;
+  width:460px; height:460px; border-radius:50%;
+  background:rgba(255,255,255,0.05);
+}
+.cta-title {
+  font-size:clamp(30px,4vw,52px); font-weight:800; line-height:1.05;
+  letter-spacing:-1.5px; color:#fff; position:relative;
+}
+.cta-sub { font-size:15px; font-weight:300; color:rgba(255,255,255,0.75); margin-top:12px; position:relative; }
+.cta-actions { display:flex; gap:12px; flex-wrap:wrap; position:relative; }
+.btn-white { background:#fff; color:var(--red); }
+.btn-white:hover { background:#f4f4f4; transform:translateY(-2px); box-shadow:0 12px 32px rgba(0,0,0,0.25); }
+.btn-white-ol { background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,0.45); }
+.btn-white-ol:hover { border-color:#fff; background:rgba(255,255,255,0.1); }
+
+/* ═══════════════ FOOTER ═══════════════ */
+footer { padding:70px clamp(20px,4vw,48px) 36px; border-top:1px solid var(--border); margin-top:80px; }
+.foot-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; padding-bottom:48px; border-bottom:1px solid var(--border); max-width:1280px; margin:0 auto; }
+.foot-brand-name { font-size:16px; font-weight:800; letter-spacing:2.5px; color:var(--white); text-transform:uppercase; margin-bottom:14px; }
+.foot-brand-name em { color:var(--red2); font-style:normal; }
+.foot-about { font-size:13.5px; font-weight:300; line-height:1.75; color:var(--text); margin-bottom:22px; max-width:300px; }
+.foot-contact a, .foot-contact div {
+  display:flex; align-items:center; gap:9px; font-size:13px; color:var(--text);
+  text-decoration:none; margin-bottom:10px; transition:color .2s;
+}
+.foot-contact a:hover { color:var(--white); }
+.foot-h { font-size:10.5px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--chrome); margin-bottom:18px; }
+.foot-links { list-style:none; }
+.foot-links li { margin-bottom:11px; }
+.foot-links a { font-size:13px; color:var(--silver); text-decoration:none; transition:color .2s; }
+.foot-links a:hover { color:var(--red2); }
+.foot-bottom { display:flex; justify-content:space-between; align-items:center; padding-top:30px; max-width:1280px; margin:0 auto; flex-wrap:wrap; gap:10px; }
+.foot-copy { font-size:11.5px; color:var(--muted); }
+.foot-copy span { color:var(--red2); }
+
+/* ═══════════════ CHAT WIDGET ═══════════════ */
+.chat-fab-wrap { position:fixed; bottom:26px; right:26px; z-index:800; display:flex; flex-direction:column; align-items:flex-end; gap:11px; }
+.chat-hint {
+  background:var(--card); border:1px solid var(--border2); border-radius:14px;
+  padding:13px 17px; font-size:13px; color:var(--text); max-width:215px; line-height:1.5;
+  box-shadow:0 12px 40px rgba(0,0,0,0.4);
+  animation:fadeIn .5s 2.4s var(--ease) both;
+}
+.chat-hint strong { color:var(--white); }
+@keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+.chat-fab {
+  width:60px; height:60px; border-radius:18px; border:none; cursor:pointer;
+  background:linear-gradient(135deg, var(--red2), #8a0a12);
+  display:flex; align-items:center; justify-content:center; position:relative;
+  box-shadow:0 10px 32px var(--red-glow);
+  transition:transform .25s var(--ease);
+  animation:fadeIn .5s 1.6s var(--ease) both;
+}
+.chat-fab:hover { transform:scale(1.07) translateY(-2px); }
+.chat-fab svg { width:26px; height:26px; fill:#fff; transition:transform .3s; }
+.chat-fab.open svg { transform:rotate(90deg); }
+.chat-dot { position:absolute; top:9px; right:9px; width:10px; height:10px; border-radius:50%; background:#22c55e; border:2px solid #8a0a12; animation:blink 2s infinite; }
+
+.chat-win {
+  position:fixed; bottom:100px; right:26px; z-index:799;
+  width:392px; height:580px; border-radius:20px; overflow:hidden;
+  background:var(--bg2); border:1px solid var(--border2);
+  display:flex; flex-direction:column;
+  box-shadow:0 40px 100px rgba(0,0,0,0.7);
+  transform:scale(0.92) translateY(20px); transform-origin:bottom right;
+  opacity:0; pointer-events:none;
+  transition:all .32s cubic-bezier(0.34,1.56,0.64,1);
+}
+.chat-win.open { transform:scale(1) translateY(0); opacity:1; pointer-events:all; }
+.chat-hdr {
+  padding:18px 20px; display:flex; align-items:center; gap:13px;
+  background:linear-gradient(120deg, rgba(212,20,31,0.15), transparent);
+  border-bottom:1px solid var(--border); flex-shrink:0;
+}
+.chat-av {
+  width:40px; height:40px; border-radius:12px; flex-shrink:0;
+  background:linear-gradient(135deg, var(--red2), #8a0a12);
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:800; color:#fff;
+}
+.chat-name { font-size:14.5px; font-weight:700; color:var(--white); }
+.chat-status { font-size:11.5px; color:#22c55e; display:flex; align-items:center; gap:5px; margin-top:1px; }
+.chat-status::before { content:''; width:6px; height:6px; border-radius:50%; background:#22c55e; }
+.chat-x { margin-left:auto; background:rgba(255,255,255,0.06); border:none; border-radius:9px; width:32px; height:32px; color:var(--muted); font-size:15px; cursor:pointer; transition:all .15s; }
+.chat-x:hover { background:var(--red-dim); color:var(--red2); }
+.chat-msgs { flex:1; overflow-y:auto; padding:20px 16px; display:flex; flex-direction:column; gap:14px; }
+.chat-msgs::-webkit-scrollbar { width:3px; }
+.msg { display:flex; gap:9px; animation:msgIn .3s var(--ease); }
+@keyframes msgIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+.msg.user { flex-direction:row-reverse; }
+.msg-av { width:28px; height:28px; border-radius:9px; background:var(--red-dim); border:1px solid rgba(212,20,31,0.25); display:flex; align-items:center; justify-content:center; font-size:11px; flex-shrink:0; margin-top:3px; }
+.msg.user .msg-av { background:var(--surface); border-color:var(--border2); }
+.msg-bub { max-width:76%; padding:12px 15px; font-size:13.5px; line-height:1.6; border-radius:14px; }
+.msg.bot .msg-bub { background:var(--surface); border:1px solid var(--border); color:var(--text); border-bottom-left-radius:4px; }
+.msg.user .msg-bub { background:var(--red); color:#fff; font-weight:500; border-bottom-right-radius:4px; }
+.typing-bub { display:flex; gap:4px; padding:13px 16px; background:var(--surface); border:1px solid var(--border); border-radius:14px; border-bottom-left-radius:4px; width:fit-content; }
+.typing-bub span { width:6px; height:6px; border-radius:50%; background:var(--red2); animation:tdot 1.2s infinite; }
+.typing-bub span:nth-child(2){animation-delay:.2s;} .typing-bub span:nth-child(3){animation-delay:.4s;}
+@keyframes tdot { 0%,60%,100%{opacity:.3; transform:scale(.8);} 30%{opacity:1; transform:scale(1.15);} }
+.qr-row { display:flex; flex-wrap:wrap; gap:7px; padding:0 16px 12px; }
+.qr {
+  background:transparent; border:1px solid rgba(212,20,31,0.35); border-radius:100px;
+  color:var(--red2); padding:8px 15px; font-size:12px; font-weight:600;
+  cursor:pointer; transition:all .2s; font-family:var(--font); min-height:36px;
+}
+.qr:hover { background:var(--red-dim); border-color:var(--red2); }
+.chat-inp-row { padding:14px 16px; border-top:1px solid var(--border); display:flex; gap:9px; align-items:flex-end; flex-shrink:0; background:var(--surface); }
+.chat-inp {
+  flex:1; background:var(--bg2); border:1px solid var(--border2); border-radius:12px;
+  color:var(--white); font-family:var(--font); font-size:13.5px;
+  padding:11px 14px; resize:none; max-height:90px; outline:none; transition:border-color .2s; line-height:1.5;
+}
+.chat-inp:focus { border-color:rgba(212,20,31,0.5); }
+.chat-inp::placeholder { color:var(--muted); }
+.chat-send {
+  width:44px; height:44px; border-radius:12px; border:none; cursor:pointer; flex-shrink:0;
+  background:var(--red); display:flex; align-items:center; justify-content:center;
   transition:all .2s;
 }
-.btn-red:hover{background:var(--red-hot);transform:translateY(-2px);}
-.btn-ghost{
-  background:transparent;color:var(--silver-lt);
-  border:1px solid rgba(180,184,192,.25);
-  padding:16px 36px;font-family:'DM Sans',sans-serif;font-size:12.5px;
-  font-weight:500;letter-spacing:2px;text-transform:uppercase;
-  cursor:pointer;text-decoration:none;
-  display:inline-flex;align-items:center;gap:9px;transition:all .2s;
+.chat-send:hover { background:var(--red2); }
+.chat-send:disabled { background:var(--card2); cursor:not-allowed; }
+.chat-send svg { width:17px; height:17px; fill:#fff; }
+
+/* ═══════════════ MOBILE STICKY BAR ═══════════════ */
+.mobile-bar {
+  display:none; position:fixed; bottom:0; left:0; right:0; z-index:700;
+  background:rgba(8,9,11,0.92); backdrop-filter:blur(20px);
+  border-top:1px solid var(--border2); padding:10px 14px;
+  gap:10px;
 }
-.btn-ghost:hover{border-color:var(--silver);color:var(--white);}
+.mobile-bar .btn { flex:1; }
 
-.hero-stats{
-  display:flex;gap:0;
-  margin-top:64px;padding-top:44px;border-top:1px solid var(--border);
-  animation:fadeUp .7s .45s ease both;
+/* ═══════════════ SIGNATURE COLORS ═══════════════ */
+.color-filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; }
+.cf-btn {
+  background:rgba(255,255,255,0.04); border:1px solid var(--border2); border-radius:100px;
+  color:var(--silver); padding:9px 20px; font-size:12px; font-weight:600;
+  letter-spacing:0.5px; cursor:pointer; transition:all .2s; font-family:var(--font);
+  min-height:38px;
 }
-.h-stat{padding:0 44px 0 0;margin:0 44px 0 0;border-right:1px solid var(--border);}
-.h-stat:last-child{border-right:none;padding-right:0;margin-right:0;}
-.h-stat-n{font-family:'Bebas Neue',sans-serif;font-size:50px;color:var(--red);line-height:1;display:block;}
-.h-stat-l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-weight:500;margin-top:4px;display:block;}
-
-/* Scroll hint */
-.scroll-hint{
-  position:absolute;bottom:36px;right:56px;z-index:2;
-  display:flex;flex-direction:column;align-items:center;gap:7px;
-  animation:fadeUp .7s .6s ease both;
+.cf-btn:hover { color:var(--white); border-color:rgba(255,255,255,0.25); }
+.cf-btn.active { background:var(--red); border-color:var(--red); color:#fff; }
+.swatches { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; }
+.swatch {
+  border-radius:14px; overflow:hidden; cursor:pointer; position:relative;
+  border:1px solid var(--border); transition:transform .3s var(--ease), border-color .3s, opacity .3s;
+  background:var(--surface);
 }
-.scroll-hint span{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl;}
-.scroll-bar{width:1px;height:52px;background:linear-gradient(var(--red),transparent);animation:scBar 2s infinite;}
-@keyframes scBar{0%{opacity:1;transform:scaleY(1) translateY(0);}100%{opacity:0;transform:scaleY(.3) translateY(10px);}}
-
-/* ==============================
-   SHARED SECTION STYLES
-============================== */
-.sec{padding:96px 56px;}
-.sec-label{
-  display:flex;align-items:center;gap:12px;
-  font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
-  color:var(--red);margin-bottom:14px;
+.swatch:hover { transform:translateY(-4px) scale(1.02); border-color:rgba(212,20,31,0.45); z-index:2; }
+.swatch.hide { opacity:0.12; pointer-events:none; }
+.swatch-chip { aspect-ratio:1; position:relative; overflow:hidden; }
+.swatch-chip img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s var(--ease); }
+.swatch:hover .swatch-chip img { transform:scale(1.06); }
+.swatch-chip::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(160deg, rgba(255,255,255,0.14) 0%, transparent 35%);
 }
-.sec-label::before{content:'';width:26px;height:1px;background:var(--red);}
-.sec-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(42px,5.5vw,82px);
-  line-height:.92;color:var(--white);letter-spacing:1.5px;margin-bottom:52px;
+.swatch-meta { padding:11px 13px 13px; }
+.swatch-name { font-size:12.5px; font-weight:700; color:var(--white); letter-spacing:0.2px; }
+.swatch-cat { font-size:10px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--red2); margin-top:3px; }
+@media (max-width:1080px) { .swatches { grid-template-columns:repeat(4,1fr); } }
+@media (max-width:640px)  { .swatches { grid-template-columns:repeat(2,1fr); } }
+
+/* ═══════════════ RESPONSIVE ═══════════════ */
+@media (max-width: 1080px) {
+  .nav-links { display:none; }
+  .bento {
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:repeat(4, 240px);
+    grid-template-areas:
+      "garage garage" "patio tile" "tubs vanity" "counter cabinet";
+  }
+  .steps { grid-template-columns:1fr 1fr; }
+  .testis { grid-template-columns:1fr; }
+  .work-grid { grid-template-columns:1fr 1fr; }
+  .foot-grid { grid-template-columns:1fr 1fr; gap:32px; }
+  .cta-band { flex-direction:column; text-align:center; }
+  .cta-actions { justify-content:center; }
 }
-.sec-title .dim{color:var(--muted);}
-
-/* Reveal animation */
-.rv{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease;}
-.rv.vis{opacity:1;transform:translateY(0);}
-.rv2{opacity:0;transform:translateY(28px);transition:opacity .65s .15s ease,transform .65s .15s ease;}
-.rv2.vis{opacity:1;transform:translateY(0);}
-.rv3{opacity:0;transform:translateY(28px);transition:opacity .65s .3s ease,transform .65s .3s ease;}
-.rv3.vis{opacity:1;transform:translateY(0);}
-
-/* ==============================
-   PHOTO GRID (real PCT photos)
-============================== */
-.photo-hero-grid{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  grid-template-rows:320px 280px;
-  gap:3px;
-  background:var(--black);
-}
-.photo-hero-grid .ph-main{grid-row:1/3;}
-.ph{position:relative;overflow:hidden;cursor:pointer;}
-.ph img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform .6s ease,filter .5s ease;
-  filter:brightness(.72) saturate(.85);
-}
-.ph:hover img{transform:scale(1.06);filter:brightness(.88) saturate(1.05);}
-.ph-tag{position:absolute;top:14px;left:14px;background:var(--red);color:#fff;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 10px;}
-.ph-caption{
-  position:absolute;bottom:0;left:0;right:0;
-  padding:20px 16px 14px;
-  background:linear-gradient(transparent,rgba(8,8,8,.88));
-  font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--silver-lt);
-  opacity:0;transition:opacity .3s;
-}
-.ph:hover .ph-caption{opacity:1;}
-
-/* Second photo row */
-.photo-row2{
-  display:grid;grid-template-columns:1fr 1fr 1fr 1fr;
-  height:260px;gap:3px;background:var(--black);
-}
-
-/* ==============================
-   SERVICES
-============================== */
-.svc-bg{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
-.svc-card{
-  background:var(--dark);padding:0;
-  position:relative;overflow:hidden;cursor:pointer;
-  transition:all .35s ease;border:1px solid transparent;
-  display:flex;flex-direction:column;
-}
-.svc-card::after{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:var(--red);transform:scaleY(0);transform-origin:bottom;
-  transition:transform .35s ease;
-}
-.svc-card:hover{background:var(--card);border-color:var(--border-lt);transform:translateY(-3px);}
-.svc-card:hover::after{transform:scaleY(1);}
-.svc-photo{width:100%;height:180px;object-fit:cover;opacity:.75;transition:opacity .4s,transform .5s;flex-shrink:0;}
-.svc-card:hover .svc-photo{opacity:1;transform:scale(1.03);}
-.svc-photo-wrap{overflow:hidden;height:180px;flex-shrink:0;}
-.svc-body{padding:28px 28px 32px;}
-.svc-num{font-family:'Bebas Neue',sans-serif;font-size:80px;color:rgba(192,18,28,.05);position:absolute;top:166px;right:12px;line-height:1;pointer-events:none;}
-.svc-name{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;letter-spacing:1px;color:var(--white);margin-bottom:10px;text-transform:uppercase;}
-.svc-desc{font-size:13.5px;line-height:1.72;color:var(--muted);font-weight:300;}
-
-/* ==============================
-   BEFORE / AFTER
-============================== */
-.ba-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
-.ba-side{position:relative;height:440px;overflow:hidden;}
-.ba-side img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
-.ba-side:hover img{transform:scale(1.04);}
-.ba-before img{filter:brightness(.55) saturate(.2);}
-.ba-after img{filter:brightness(.85) saturate(1);}
-.ba-tag{position:absolute;top:18px;left:18px;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
-.ba-tag.b4{background:rgba(14,14,14,.85);color:var(--muted);border:1px solid var(--border);}
-.ba-tag.af{background:var(--red);color:#fff;}
-.ba-note{position:absolute;bottom:18px;left:18px;right:18px;font-size:13px;color:var(--silver);font-weight:500;line-height:1.5;}
-
-/* ==============================
-   WORK MOSAIC
-============================== */
-.mosaic{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;}
-.mosaic-item{position:relative;overflow:hidden;aspect-ratio:1;cursor:pointer;}
-.mosaic-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease,filter .4s ease;filter:brightness(.65) saturate(.75);}
-.mosaic-item:hover img{transform:scale(1.08);filter:brightness(.88) saturate(1.05);}
-.mosaic-item.wide{grid-column:span 2;}
-.mosaic-overlay{
-  position:absolute;inset:0;display:flex;flex-direction:column;
-  justify-content:flex-end;padding:18px;
-  background:linear-gradient(transparent 40%,rgba(8,8,8,.86));
-  opacity:0;transition:opacity .3s;
-}
-.mosaic-item:hover .mosaic-overlay{opacity:1;}
-.mosaic-type{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:3px;}
-.mosaic-loc{font-size:14px;font-weight:600;color:var(--white);}
-
-/* ==============================
-   PROCESS
-============================== */
-.proc-bg{background:var(--surface);border-top:1px solid var(--border);}
-.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);}
-.proc-step{padding:52px 36px;border-right:1px solid var(--border);position:relative;}
-.proc-step:last-child{border-right:none;}
-.proc-ghost{font-family:'Bebas Neue',sans-serif;font-size:96px;color:rgba(192,18,28,.06);position:absolute;top:12px;right:12px;line-height:1;pointer-events:none;}
-.proc-badge{display:inline-block;background:var(--red);color:#fff;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;margin-bottom:18px;}
-.proc-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--white);margin-bottom:12px;}
-.proc-desc{font-size:13px;line-height:1.72;color:var(--muted);font-weight:300;}
-
-/* ==============================
-   SIGNATURE COLORS
-============================== */
-.swatches{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;}
-.swatch{aspect-ratio:1;position:relative;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s;}
-.swatch:hover{transform:scale(1.06);z-index:2;box-shadow:0 8px 32px rgba(192,18,28,.2);}
-.swatch-face{width:100%;height:100%;}
-.swatch-info{position:absolute;inset:0;background:rgba(8,8,8,.72);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;opacity:0;transition:opacity .3s;}
-.swatch:hover .swatch-info{opacity:1;}
-.swatch-name{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--white);text-align:center;padding:0 8px;}
-.swatch-cat{font-size:10px;color:var(--red);letter-spacing:1px;text-transform:uppercase;font-weight:700;}
-
-/* ==============================
-   TESTIMONIALS
-============================== */
-.testi-bg{background:var(--dark);}
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.t-card{background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--red);padding:36px;transition:border-color .3s;}
-.t-card:hover{border-color:rgba(192,18,28,.45);}
-.stars{display:flex;gap:3px;margin-bottom:16px;}
-.star{color:var(--red);font-size:15px;}
-.t-text{font-size:15px;line-height:1.77;color:var(--text);font-weight:300;font-style:italic;margin-bottom:22px;}
-.t-author{display:flex;align-items:center;gap:12px;}
-.t-av{width:40px;height:40px;background:var(--red-dim);border:1px solid rgba(192,18,28,.3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--red);}
-.t-name{font-size:14px;font-weight:700;color:var(--white);}
-.t-loc{font-size:12px;color:var(--muted);margin-top:2px;}
-
-/* ==============================
-   CTA BAND
-============================== */
-.cta-band{
-  background:var(--red);padding:72px 56px;
-  display:flex;align-items:center;justify-content:space-between;gap:40px;
-  position:relative;overflow:hidden;
-}
-.cta-band::before{content:'';position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.04);}
-.cta-band::after{content:'';position:absolute;left:-60px;bottom:-100px;width:320px;height:320px;border-radius:50%;background:rgba(0,0,0,.06);}
-.cta-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4.5vw,68px);color:#fff;letter-spacing:2px;line-height:.92;position:relative;z-index:1;}
-.cta-sub{font-size:15px;color:rgba(255,255,255,.7);margin-top:10px;position:relative;z-index:1;}
-.cta-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;position:relative;z-index:1;}
-.btn-white{background:#fff;color:var(--red);border:none;padding:18px 40px;font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:9px;flex-shrink:0;transition:all .2s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));text-decoration:none;}
-.btn-white:hover{background:#f0f0f0;transform:translateY(-2px);}
-.btn-white-ol{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5);padding:18px 40px;font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:9px;transition:all .2s;text-decoration:none;}
-.btn-white-ol:hover{border-color:#fff;background:rgba(255,255,255,.1);}
-
-/* ==============================
-   FOOTER
-============================== */
-footer{background:var(--black);border-top:1px solid var(--border);padding:80px 56px 36px;}
-.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;padding-bottom:52px;border-bottom:1px solid var(--border);margin-bottom:34px;}
-.foot-brand{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:3px;color:var(--white);margin-bottom:14px;}
-.foot-brand span{color:var(--red);}
-.foot-tag{font-size:13.5px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:22px;}
-.foot-contact a,.foot-contact div{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text);text-decoration:none;margin-bottom:9px;transition:color .2s;}
-.foot-contact a:hover{color:var(--silver-lt);}
-.foot-col-h{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--silver);margin-bottom:16px;}
-.foot-links{list-style:none;}
-.foot-links li{margin-bottom:10px;}
-.foot-links a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .2s;}
-.foot-links a:hover{color:var(--red);}
-.foot-bottom{display:flex;justify-content:space-between;align-items:center;}
-.foot-copy{font-size:11.5px;color:var(--muted);}
-.foot-copy span{color:var(--red);}
-
-/* ==============================
-   CHAT FAB
-============================== */
-.chat-fab{position:fixed;bottom:28px;right:28px;z-index:800;display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
-.chat-bubble{
-  background:var(--surface);border:1px solid var(--border);border-right:3px solid var(--red);
-  padding:12px 15px;font-size:13px;color:var(--text);max-width:200px;line-height:1.4;
-  animation:fIR .5s 2.2s ease both;position:relative;
-}
-.chat-bubble::after{content:'';position:absolute;bottom:-6px;right:20px;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid var(--red);}
-@keyframes fIR{from{opacity:0;transform:translateX(14px);}to{opacity:1;transform:translateX(0);}}
-.chat-fab-btn{
-  width:60px;height:60px;background:var(--red);border:none;
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
-  transition:all .3s;animation:fIR .4s 1.6s ease both;position:relative;
-}
-.chat-fab-btn:hover{background:var(--red-hot);transform:scale(1.05);}
-.chat-fab-btn svg{width:25px;height:25px;fill:#fff;transition:transform .3s;}
-.chat-fab-btn.open svg{transform:rotate(45deg);}
-.fab-dot{position:absolute;top:8px;right:8px;width:9px;height:9px;background:#22c55e;border-radius:50%;border:2px solid var(--red);animation:pdot 2s infinite;}
-@keyframes pdot{0%,100%{opacity:1;}50%{opacity:.3;}}
-
-/* CHAT WINDOW */
-.chat-win{
-  position:fixed;bottom:104px;right:28px;width:388px;height:565px;
-  background:var(--dark);border:1px solid var(--border);border-top:2px solid var(--red);
-  z-index:799;display:flex;flex-direction:column;
-  transform:scale(.9) translateY(16px);transform-origin:bottom right;
-  opacity:0;pointer-events:none;
-  transition:all .3s cubic-bezier(.34,1.56,.64,1);
-  box-shadow:0 28px 72px rgba(0,0,0,.72);
-}
-.chat-win.open{transform:scale(1) translateY(0);opacity:1;pointer-events:all;}
-.chat-hdr{padding:17px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:var(--surface);flex-shrink:0;}
-.chat-av{width:37px;height:37px;background:var(--red);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:15px;color:#fff;flex-shrink:0;}
-.chat-hdr-name{font-size:14px;font-weight:700;color:var(--white);}
-.chat-hdr-status{font-size:11px;color:#22c55e;display:flex;align-items:center;gap:4px;}
-.chat-hdr-status::before{content:'';width:6px;height:6px;background:#22c55e;border-radius:50%;}
-.chat-x{margin-left:auto;background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:17px;padding:4px;transition:color .2s;line-height:1;}
-.chat-x:hover{color:var(--red);}
-.chat-msgs{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth;}
-.chat-msgs::-webkit-scrollbar{width:3px;}
-.chat-msgs::-webkit-scrollbar-thumb{background:var(--border);}
-.msg{display:flex;gap:8px;animation:msgIn .3s ease;}
-@keyframes msgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.msg.user{flex-direction:row-reverse;}
-.msg-av{width:27px;height:27px;background:var(--red-dim);border:1px solid rgba(192,18,28,.22);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--red);font-weight:700;flex-shrink:0;margin-top:3px;}
-.msg.user .msg-av{background:var(--surface);border-color:var(--border);color:var(--muted);}
-.msg-bub{max-width:78%;padding:11px 14px;font-size:13.5px;line-height:1.58;}
-.msg.bot .msg-bub{background:var(--surface);border:1px solid var(--border);border-left:2px solid var(--red);color:var(--text);border-radius:2px;}
-.msg.user .msg-bub{background:var(--red);color:#fff;font-weight:500;border-radius:2px;}
-.msg-t{font-size:10px;color:var(--muted);margin-top:3px;}
-.msg.user .msg-t{text-align:right;}
-.typing{display:flex;gap:8px;}
-.typing-bub{display:flex;gap:4px;padding:11px 14px;background:var(--surface);border:1px solid var(--border);border-left:2px solid var(--red);}
-.typing-bub span{width:5px;height:5px;background:var(--red);border-radius:50%;animation:td 1.2s infinite;}
-.typing-bub span:nth-child(2){animation-delay:.2s;}
-.typing-bub span:nth-child(3){animation-delay:.4s;}
-@keyframes td{0%,60%,100%{opacity:.3;transform:scale(.8);}30%{opacity:1;transform:scale(1.2);}}
-.qr-row{display:flex;flex-wrap:wrap;gap:7px;padding:0 16px 10px;}
-.qr{background:transparent;border:1px solid rgba(192,18,28,.32);color:var(--red);padding:6px 13px;font-size:11.5px;font-weight:600;letter-spacing:.4px;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
-.qr:hover{background:var(--red-dim);border-color:var(--red);}
-.chat-inp-row{padding:13px 16px;border-top:1px solid var(--border);display:flex;gap:9px;align-items:flex-end;background:var(--surface);flex-shrink:0;}
-.chat-inp{flex:1;background:var(--dark);border:1px solid var(--border);color:var(--text);padding:10px 13px;font-family:'DM Sans',sans-serif;font-size:13px;resize:none;max-height:88px;outline:none;transition:border-color .2s;line-height:1.5;}
-.chat-inp:focus{border-color:rgba(192,18,28,.38);}
-.chat-inp::placeholder{color:var(--muted);}
-.chat-send{width:40px;height:40px;background:var(--red);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px));transition:background .2s;}
-.chat-send:hover{background:var(--red-hot);}
-.chat-send:disabled{background:var(--border);cursor:not-allowed;}
-.chat-send svg{width:15px;height:15px;fill:#fff;}
-
-/* Keyframes */
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
-
-/* ==============================
-   RESPONSIVE
-============================== */
-@media(max-width:1100px){
-  nav{padding:0 24px;}
-  .nav-links{display:none;}
-  .sec{padding:72px 28px;}
-  .hero-inner{padding:120px 28px 80px;}
-  .svc-grid{grid-template-columns:1fr 1fr;}
-  .proc-grid{grid-template-columns:1fr 1fr;}
-  .testi-grid{grid-template-columns:1fr;}
-  .photo-hero-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
-  .photo-hero-grid .ph-main{grid-row:auto;}
-  .photo-row2{grid-template-columns:1fr 1fr;}
-  .mosaic{grid-template-columns:1fr 1fr;}
-  .mosaic-item.wide{grid-column:span 1;}
-  .swatches{grid-template-columns:repeat(4,1fr);}
-  .foot-grid{grid-template-columns:1fr 1fr;gap:32px;}
-  .cta-band{flex-direction:column;text-align:center;padding:56px 28px;}
-  footer{padding:60px 28px 32px;}
-  .h-stat{padding-right:24px;margin-right:24px;}
-}
-@media(max-width:640px){
-  .svc-grid,.proc-grid{grid-template-columns:1fr;}
-  .swatches{grid-template-columns:repeat(3,1fr);}
-  .ba-wrap{grid-template-columns:1fr;}
-  .photo-hero-grid,.photo-row2{grid-template-columns:1fr;}
-  .mosaic{grid-template-columns:1fr 1fr;}
-  .chat-win{width:calc(100vw - 20px);right:10px;bottom:88px;}
-  .foot-grid{grid-template-columns:1fr;}
-  .foot-bottom{flex-direction:column;gap:8px;text-align:center;}
-  .hero-stats{flex-direction:column;gap:0;}
-  .h-stat{border-right:none;padding:0 0 18px;margin:0 0 18px;border-bottom:1px solid var(--border);}
-  .h-stat:last-child{border-bottom:none;padding:0;margin:0;}
-  .scroll-hint{display:none;}
+@media (max-width: 640px) {
+  .nav-phone { display:none; }
+  .bento {
+    grid-template-columns:1fr;
+    grid-template-rows:repeat(7, 200px);
+    grid-template-areas:"garage" "patio" "tile" "tubs" "vanity" "counter" "cabinet";
+  }
+  .steps, .work-grid { grid-template-columns:1fr; }
+  .work-card.tall { grid-row:span 1; aspect-ratio:4/3; }
+  .proof-item { padding-right:22px; margin-right:22px; }
+  .proof-num { font-size:32px; }
+  .foot-grid { grid-template-columns:1fr; }
+  .chat-win { width:calc(100vw - 20px); right:10px; bottom:90px; height:72svh; }
+  .mobile-bar { display:flex; }
+  .chat-fab-wrap { bottom:76px; }
+  footer { padding-bottom:90px; }
+  .ba-slider { aspect-ratio:4/3; }
 }
 </style>
 </head>
 <body>
 
-<div id="cur"></div>
-<div id="curR"></div>
-
-<!-- ===== NAV ===== -->
-<nav>
-  <a href="#" class="nav-logo">
-    <div class="logo-mark"></div>
-    <div class="logo-txt">PRECISION <span>COATINGS</span></div>
+<!-- ════════ NAV ════════ -->
+<nav aria-label="Main navigation">
+  <a href="#top" class="nav-brand" aria-label="Precision Coatings of Texas home">
+    <svg width="32" height="38" viewBox="0 0 34 40" fill="none" aria-hidden="true">
+      <path d="M17 1L32 7.5V20C32 29 24.5 36 17 39C9.5 36 2 29 2 20V7.5L17 1Z" fill="#131419" stroke="#2a2d36" stroke-width="1"/>
+      <path d="M17 3.5L30 9.5V20C30 27.5 23.5 34 17 37C10.5 34 4 27.5 4 20V9.5L17 3.5Z" fill="#0d0e11" stroke="#d4141f" stroke-width="1"/>
+      <path d="M17 7L27 12V20C27 26 22.5 31.5 17 34C11.5 31.5 7 26 7 20V12L17 7Z" fill="#d4141f" opacity="0.92"/>
+      <text x="8.2" y="24.5" font-family="Arial Black,sans-serif" font-size="11.5" font-weight="900" fill="#fff">PCT</text>
+      <path d="M17 3.5L30 9.5V12.5L17 6.5L4 12.5V9.5L17 3.5Z" fill="rgba(200,204,212,0.12)"/>
+    </svg>
+    <div class="nav-brand-text">
+      <div class="nav-name">PRECISION <em>COATINGS</em></div>
+      <div class="nav-tag">Of Texas</div>
+    </div>
   </a>
   <ul class="nav-links">
-    <li><a href="#photos">Our Work</a></li>
     <li><a href="#services">Services</a></li>
-    <li><a href="#process">Process</a></li>
+    <li><a href="#gallery">Gallery</a></li>
     <li><a href="#colors">Colors</a></li>
+    <li><a href="#process">Process</a></li>
     <li><a href="#reviews">Reviews</a></li>
   </ul>
   <div class="nav-right">
-    <a href="tel:5125377951" class="nav-tel">📞 512-537-7951</a>
-    <a href="#" class="nav-cta" onclick="openChat();return false;">Free Estimate</a>
+    <a href="tel:5125377951" class="nav-phone">512-537-7951</a>
+    <button class="btn btn-red btn-sm" onclick="openChat()">Free Estimate</button>
   </div>
 </nav>
 
-<!-- ===== HERO — using actual PCT job photo ===== -->
-<section class="hero" id="home">
-  <div class="hero-bg">
-    <!-- Real PCT photo: garage flake floor job -->
-    <img
-      src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20230612_083453.jpg/:/rs=w:1600,cg:true"
-      alt="Precision Coatings of Texas — finished garage floor"
-      loading="eager"
-    >
-    <div class="hero-overlay"></div>
-    <div class="hero-stripe"></div>
-    <div class="hero-stripe-r"></div>
+<!-- ════════ HERO ════════ -->
+<header class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20230612_083453.jpg/:/rs=w:1800,cg:true" alt="" loading="eager">
+    <div class="hero-veil"></div>
   </div>
   <div class="hero-inner">
-    <div class="hero-eyebrow">Austin, Texas · Precision Floor Coatings</div>
-    <h1 class="hero-h1">
-      SURFACES<br>
-      <span class="red">BUILT TO</span><br>
-      <span class="sil">OUTLAST</span>
+    <div class="hero-kicker">Transforming Surfaces With Precision · Serving Austin & Central Texas</div>
+    <h1 class="hero-title">
+      EVERY SURFACE<br>
+      <span class="thin">deserves a</span> <span class="red">second life.</span>
     </h1>
-    <p class="hero-sub">Central Texas's trusted floor coating specialists. From residential garages to commercial spaces — we coat every surface with precision, quality materials, and unmatched craftsmanship.</p>
-    <div class="hero-btns">
-      <a href="#" class="btn-red" onclick="openChat();return false;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <p class="hero-sub">Garages, patios, tile, tubs, vanities, countertops & cabinets — restored to better-than-new with professional-grade coatings. Serving Central Texas since 2014.</p>
+    <div class="hero-ctas">
+      <button class="btn btn-red btn-lg" onclick="openChat()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         Get Free Estimate
+      </button>
+      <a href="#transform" class="btn btn-ghost btn-lg">See Transformations</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-item"><span class="proof-num">10<em>+</em></span><span class="proof-lbl">Years Experience</span></div>
+      <div class="proof-item"><span class="proof-num">5.0<em>★</em></span><span class="proof-lbl">HomeAdvisor Rated</span></div>
+      <div class="proof-item"><span class="proof-num">7<em>/7</em></span><span class="proof-lbl">Open Every Day</span></div>
+      <div class="proof-item"><span class="proof-num">$0</span><span class="proof-lbl">On-Site Estimates</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════ MARQUEE ════════ -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Garages</span><span class="marquee-item">Patios</span><span class="marquee-item">Tile</span><span class="marquee-item">Tubs</span><span class="marquee-item">Vanities</span><span class="marquee-item">Countertops</span><span class="marquee-item">Cabinets</span><span class="marquee-item">Free Estimates</span>
+    <span class="marquee-item">Garages</span><span class="marquee-item">Patios</span><span class="marquee-item">Tile</span><span class="marquee-item">Tubs</span><span class="marquee-item">Vanities</span><span class="marquee-item">Countertops</span><span class="marquee-item">Cabinets</span><span class="marquee-item">Free Estimates</span>
+  </div>
+</div>
+
+<!-- ════════ SERVICES BENTO ════════ -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-kicker">What We Refinish</div>
+      <h2 class="sec-title">Seven surfaces.<br><span class="thin">One standard — flawless.</span></h2>
+    </div>
+    <div class="bento">
+      <a class="bento-cell b-garage rv" href="#" onclick="chatAbout('Garage floor coating');return false;">
+        <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20240312_171440.jpg/:/rs=w:900,cg:true" alt="Finished garage floor with flake coating" loading="lazy">
+        <div class="bento-grad"></div>
+        <div class="bento-tag">Most Popular</div>
+        <div class="bento-arrow" aria-hidden="true">→</div>
+        <div class="bento-content">
+          <div class="bento-name">Garages</div>
+          <div class="bento-desc">Flake, metallic & solid epoxy systems built for Texas heat, hot tires, and decades of daily use.</div>
+        </div>
       </a>
-      <a href="#photos" class="btn-ghost">
-        See Our Work
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <a class="bento-cell b-patio rv" href="#" onclick="chatAbout('Patio coating');return false;">
+        <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20220921_112555.jpg/:/cr=t:29.26%25,l:13.24%25,w:73.53%25,h:41.46%25/rs=w:700,cg:true" alt="Coated outdoor patio" loading="lazy">
+        <div class="bento-grad"></div>
+        <div class="bento-arrow" aria-hidden="true">→</div>
+        <div class="bento-content">
+          <div class="bento-name">Patios</div>
+          <div class="bento-desc">UV-stable overlays, stains & non-slip finishes for outdoor living.</div>
+        </div>
+      </a>
+      <a class="bento-cell b-tile rv" href="#" onclick="chatAbout('Tile resurfacing');return false;">
+        <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20221202_122646.jpg/:/cr=t:16.67%25,l:0%25,w:100%25,h:66.67%25/rs=w:700,cg:true" alt="Resurfaced tile floor" loading="lazy">
+        <div class="bento-grad"></div>
+        <div class="bento-arrow" aria-hidden="true">→</div>
+        <div class="bento-content">
+          <div class="bento-name">Tile</div>
+          <div class="bento-desc">Seamless epoxy over tile — no demo, no grout lines, easy clean.</div>
+        </div>
+      </a>
+      <a class="bento-cell b-tubs rv" href="#" onclick="chatAbout('Tub refinishing');return false;">
+        <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20231213_101300.jpg/:/cr=t:5.41%25,l:0%25,w:100%25,h:79.01%25/rs=w:700,cg:true" alt="Professionally refinished bathtub and shower by PCT" loading="lazy">
+        <div class="bento-grad"></div>
+        <div class="bento-arrow" aria-hidden="true">→</div>
+        <div class="bento-content">
+          <div class="bento-name">Tubs</div>
+          <div class="bento-desc">Chip & rust repair, reglazing — most tubs done in 2 days. Cast iron, porcelain, fiberglass & acrylic.</div>
+        </div>
+      </a>
+      <a class="bento-cell b-vanity rv" href="#" onclick="chatAbout('Vanity refinishing');return false;">
+        <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20230414_105142.jpg/:/cr=t:13.09%25,l:27.49%25,w:40.44%25,h:67.57%25/rs=w:700,cg:true" alt="Refinished bathroom vanity" loading="lazy">
+        <div class="bento-grad"></div>
+        <div class="bento-arrow" aria-hidden="true">→</div>
+        <div class="bento-content">
+          <div class="bento-name">Vanities</div>
+          <div class="bento-desc">Dated vanities transformed without the cost of replacement.</div>
+        </div>
+      </a>
+      <a class="bento-cell b-counter rv" href="#" onclick="chatAbout('Countertop refinishing');return false;">
+        <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20231201_092005.jpg/:/rs=w:700,cg:true" alt="Refinished countertop" loading="lazy">
+        <div class="bento-grad"></div>
+        <div class="bento-arrow" aria-hidden="true">→</div>
+        <div class="bento-content">
+          <div class="bento-name">Countertops</div>
+          <div class="bento-desc">Fresh stone-look finishes at a fraction of replacement cost.</div>
+        </div>
+      </a>
+      <a class="bento-cell b-cabinet rv" href="#" onclick="chatAbout('Cabinet refinishing');return false;">
+        <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/Resized_20220723_151233.jpeg/:/cr=t:21.8%25,l:0%25,w:100%25,h:56.39%25/rs=w:700,cg:true" alt="Refinished kitchen cabinets" loading="lazy">
+        <div class="bento-grad"></div>
+        <div class="bento-arrow" aria-hidden="true">→</div>
+        <div class="bento-content">
+          <div class="bento-name">Cabinets</div>
+          <div class="bento-desc">Kitchen & bath cabinets refinished — skip the demo mess.</div>
+        </div>
       </a>
     </div>
-    <div class="hero-stats">
-      <div class="h-stat"><span class="h-stat-n">10+</span><span class="h-stat-l">Years Experience</span></div>
-      <div class="h-stat"><span class="h-stat-n">500+</span><span class="h-stat-l">Jobs Completed</span></div>
-      <div class="h-stat"><span class="h-stat-n">5★</span><span class="h-stat-l">Google Rating</span></div>
-    </div>
-  </div>
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-bar"></div>
   </div>
 </section>
 
-<!-- ===== PHOTO GRID (all real PCT CDN photos) ===== -->
-<div id="photos" style="background:var(--black);">
-  <div style="padding:56px 56px 24px;">
-    <div class="sec-label rv">Our Work</div>
-    <h2 class="sec-title rv2" style="margin-bottom:0;">REAL JOBS,<br><span class="dim">REAL RESULTS</span></h2>
-  </div>
-
-  <!-- Row 1: 5-cell hero grid -->
-  <div class="photo-hero-grid">
-    <!-- Main large cell -->
-    <div class="ph ph-main">
-      <img
-        src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20240312_171440.jpg/:/rs=w:900,cg:true"
-        alt="PCT garage floor coating job" loading="lazy"
-      >
-      <div class="ph-tag">Featured</div>
-      <div class="ph-caption">Garage Floor — Flake System</div>
+<!-- ════════ GALLERY ════════ -->
+<section id="gallery" style="padding-top:30px;">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-kicker">Gallery</div>
+      <h2 class="sec-title">Real jobs.<br><span class="thin">Real results.</span></h2>
+      <p class="sec-sub">Drag the slider to watch a transformation, then browse recent projects below.</p>
     </div>
-    <!-- Top right -->
-    <div class="ph">
-      <img
-        src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/Flake%20Floor%202.jpg/:/rs=w:600,cg:true"
-        alt="PCT flake floor 2" loading="lazy"
-      >
-      <div class="ph-caption">Vinyl Flake — Garage</div>
-    </div>
-    <!-- Bottom right top -->
-    <div class="ph">
-      <img
-        src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20221107_154552%20(1).jpg/:/rs=w:600,cg:true"
-        alt="PCT floor coating project" loading="lazy"
-      >
-      <div class="ph-caption">Coating Application</div>
-    </div>
-    <!-- Bottom right bottom 1 -->
-    <div class="ph">
-      <img
-        src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/Flake%20Floor.jpg/:/rs=w:600,cg:true"
-        alt="PCT flake floor finished" loading="lazy"
-      >
-      <div class="ph-caption">Flake System — Finished</div>
-    </div>
-    <!-- Bottom right bottom 2 -->
-    <div class="ph">
-      <img
-        src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20240312_171445.jpg/:/rs=w:600,cg:true"
-        alt="PCT recent project" loading="lazy"
-      >
-      <div class="ph-caption">Recent Garage Project</div>
-    </div>
-  </div>
-
-  <!-- Row 2: 4-cell strip -->
-  <div class="photo-row2" style="margin-top:3px;">
-    <div class="ph">
-      <img
-        src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20220921_112555.jpg/:/cr=t:29.26%25,l:13.24%25,w:73.53%25,h:41.46%25/rs=w:600,cg:true"
-        alt="PCT patio coating" loading="lazy"
-      >
-      <div class="ph-tag" style="background:rgba(14,14,14,.8);color:var(--silver);border:1px solid var(--border);">Patio</div>
-      <div class="ph-caption">Patio — Natural Accent</div>
-    </div>
-    <div class="ph">
-      <img
-        src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20221202_122646.jpg/:/cr=t:16.67%25,l:0%25,w:100%25,h:66.67%25/rs=w:600,cg:true"
-        alt="PCT tile floor" loading="lazy"
-      >
-      <div class="ph-caption">Tile Resurfacing</div>
-    </div>
-    <div class="ph">
-      <img
-        src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20240312_171455.jpg/:/rs=w:600,cg:true"
-        alt="PCT project detail" loading="lazy"
-      >
-      <div class="ph-caption">Detail — Garage Floor</div>
-    </div>
-    <div class="ph">
-      <img
-        src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/blob-f27634a.png/:/rs=w:600,cg:true"
-        alt="PCT coating work" loading="lazy"
-      >
-      <div class="ph-tag">Latest</div>
-      <div class="ph-caption">Coating Application</div>
-    </div>
-  </div>
-</div>
-
-<!-- Quick CTA strip -->
-<div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 56px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
-  <p style="font-size:14px;color:var(--muted);"><span style="color:var(--silver-lt);font-weight:600;">Want to see your space transformed?</span> Our AI estimator can get you a free quote in minutes.</p>
-  <a href="#" class="btn-red" onclick="openChat();return false;" style="flex-shrink:0;font-size:12px;">Chat with AI Estimator</a>
-</div>
-
-<!-- ===== SERVICES ===== -->
-<section id="services" class="svc-bg sec">
-  <div class="sec-label rv">What We Do</div>
-  <h2 class="sec-title rv2">OUR <span class="dim">COATING</span><br>SERVICES</h2>
-  <div class="svc-grid">
-
-    <!-- Patios -->
-    <div class="svc-card rv">
-      <div class="svc-num">01</div>
-      <div class="svc-photo-wrap">
-        <img class="svc-photo"
-          src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20220921_112555.jpg/:/cr=t:29.26%25,l:13.24%25,w:73.53%25,h:41.46%25/rs=w:600,h:300,cg:true"
-          alt="Patio coating PCT" loading="lazy">
+    <div class="ba-slider rv" id="baSlider" role="slider" aria-label="Before and after comparison slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+      <div class="ba-img ba-before-wrap">
+        <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/Flake%20Floor%20Before.jpg/:/rs=w:1400,cg:true" alt="Garage floor before coating — bare cracked concrete" loading="lazy">
       </div>
-      <div class="svc-body">
-        <div class="svc-name">Patios</div>
-        <p class="svc-desc">Transform your outdoor patio with vinyl flake, natural accent, stain, or solid color systems. Built for Texas weather — heat, UV, and heavy foot traffic.</p>
+      <div class="ba-img ba-after-wrap" id="baAfter">
+        <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/Flake%20Floor%202.jpg/:/rs=w:1400,cg:true" alt="Same garage floor after professional flake epoxy coating" loading="lazy">
       </div>
+      <div class="ba-divider" id="baDivider"></div>
+      <div class="ba-handle" id="baHandle" aria-hidden="true">⇄</div>
+      <div class="ba-label before">Before</div>
+      <div class="ba-label after">After</div>
     </div>
+    <p class="ba-hint">← Drag the handle or use arrow keys →</p>
 
-    <!-- Garages -->
-    <div class="svc-card rv2">
-      <div class="svc-num">02</div>
-      <div class="svc-photo-wrap">
-        <img class="svc-photo"
-          src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20240312_171440.jpg/:/rs=w:600,h:300,cg:true"
-          alt="Garage floor coating PCT" loading="lazy">
+    <div class="work-grid" style="margin-top:48px;">
+      <div class="work-card tall rv">
+        <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20230719_104958.jpg/:/rs=w:900,cg:true" alt="Precision Coatings flagship floor project" loading="lazy">
+        <div class="work-info"><div class="work-type">Featured Project</div><div class="work-name">PCT Signature Finish</div></div>
       </div>
-      <div class="svc-body">
-        <div class="svc-name">Garages</div>
-        <p class="svc-desc">Metallic, solid color, natural accent, and vinyl flake systems — all designed to protect your garage floor investment with superior durability and clean aesthetics.</p>
+      <div class="work-card rv">
+        <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20230612_083453.jpg/:/rs=w:700,cg:true" alt="Garage floor coated for maximum durability" loading="lazy">
+        <div class="work-info"><div class="work-type">Garage · Flake System</div><div class="work-name">Built for Vehicles & Equipment</div></div>
       </div>
-    </div>
-
-    <!-- Tile -->
-    <div class="svc-card rv3">
-      <div class="svc-num">03</div>
-      <div class="svc-photo-wrap">
-        <img class="svc-photo"
-          src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20230412_112213.jpg/:/cr=t:33.08%25,l:0%25,w:100%25,h:33.83%25/rs=w:600,h:300,cg:true"
-          alt="Tile floor coating PCT" loading="lazy">
+      <div class="work-card rv">
+        <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20220921_112555.jpg/:/cr=t:29.26%25,l:13.24%25,w:73.53%25,h:41.46%25/rs=w:700,cg:true" alt="Patio resurfaced in Natural Accent Texas Sand with non-slip additive" loading="lazy">
+        <div class="work-info"><div class="work-type">Patio · Natural Accent</div><div class="work-name">Texas Sand + Non-Slip</div></div>
       </div>
-      <div class="svc-body">
-        <div class="svc-name">Tile Floors</div>
-        <p class="svc-desc">Effortless cleaning and unparalleled durability. Epoxy, vinyl flake, and multi-spec coatings over tile floors create an impenetrable shield against dirt, grime, and stains.</p>
+      <div class="work-card rv">
+        <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20231220_104620.jpg/:/cr=t:16.65%25,l:0%25,w:100%25,h:66.7%25/rs=w:700,cg:true" alt="Refinished sink with restored luster" loading="lazy">
+        <div class="work-info"><div class="work-type">Sink Refinishing</div><div class="work-name">Restored Original Luster</div></div>
       </div>
-    </div>
-
-    <!-- Countertops -->
-    <div class="svc-card rv">
-      <div class="svc-num">04</div>
-      <div class="svc-photo-wrap">
-        <img class="svc-photo"
-          src="https://img1.wsimg.com/isteam/ip/0f231234-604e-4ca2-8a19-8f07d8fe5b53/20231201_092005.jpg/:/cr=t:25.39%25,l:0%25,w:100%25,h:56.39%25/rs=w:600,h:300,cg:true"
-          alt="Countertop refinishing"
-          loading="lazy"
-          onerror="this.src='https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20231201_092005.jpg/:/rs=w:600,h:300,cg:true'">
+      <div class="work-card rv">
+        <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20240312_171445.jpg/:/rs=w:700,cg:true" alt="Recent garage flake coating detail 2024" loading="lazy">
+        <div class="work-info"><div class="work-type">Garage · 2024</div><div class="work-name">Flake Detail</div></div>
       </div>
-      <div class="svc-body">
-        <div class="svc-name">Countertops</div>
-        <p class="svc-desc">Skip the demo mess. Our professional countertop and backsplash refinishing gives you a fresh, updated look at a fraction of the replacement cost.</p>
-      </div>
-    </div>
-
-    <!-- Tubs & Vanities -->
-    <div class="svc-card rv2">
-      <div class="svc-num">05</div>
-      <div class="svc-photo-wrap">
-        <img class="svc-photo"
-          src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20230414_105142.jpg/:/cr=t:13.09%25,l:27.49%25,w:40.44%25,h:67.57%25/rs=w:600,h:300,cg:true"
-          alt="Vanity refinishing PCT" loading="lazy">
-      </div>
-      <div class="svc-body">
-        <div class="svc-name">Tubs & Vanities</div>
-        <p class="svc-desc">Breathe new life into tired tubs and dated vanities. We fix chips, rust, and discoloration — leaving a gleaming, durable surface in just a couple of days.</p>
-      </div>
-    </div>
-
-    <!-- Cabinet Refinishing -->
-    <div class="svc-card rv3">
-      <div class="svc-num">06</div>
-      <div class="svc-photo-wrap">
-        <img class="svc-photo"
-          src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/Resized_20220723_151233.jpeg/:/cr=t:21.8%25,l:0%25,w:100%25,h:56.39%25/rs=w:600,h:300,cg:true"
-          alt="Cabinet refinishing PCT" loading="lazy">
-      </div>
-      <div class="svc-body">
-        <div class="svc-name">Cabinet Refinishing</div>
-        <p class="svc-desc">Restore your kitchen or bathroom cabinets without replacement. Our craftsmen deliver stunning transformations that enhance your entire space.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ===== BEFORE / AFTER ===== -->
-<section style="background:var(--black);padding:0 56px 80px;">
-  <div class="sec-label rv" style="margin-bottom:14px;">Transformations</div>
-  <h2 class="sec-title rv2" style="margin-bottom:28px;">BEFORE <span class="dim">&</span><br>AFTER</h2>
-  <div class="ba-wrap">
-    <div class="ba-side ba-before">
-      <!-- Real PCT "Flake Floor Before" image -->
-      <img
-        src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/Flake%20Floor%20Before.jpg/:/rs=w:800,cg:true"
-        alt="Before coating — bare concrete garage"
-        loading="lazy"
-      >
-      <div class="ba-tag b4">Before</div>
-      <div class="ba-note">Bare, cracked concrete — typical uncoated garage floor</div>
-    </div>
-    <div class="ba-side ba-after">
-      <!-- Real PCT finished flake floor -->
-      <img
-        src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/Flake%20Floor%202.jpg/:/rs=w:800,cg:true"
-        alt="After coating — finished flake epoxy floor"
-        loading="lazy"
-      >
-      <div class="ba-tag af">After</div>
-      <div class="ba-note">Professional vinyl flake epoxy — same garage, same-day install</div>
     </div>
   </div>
 </section>
 
-<!-- ===== WORK MOSAIC (more real PCT photos) ===== -->
-<div style="background:var(--black);padding:0 0 72px;">
-  <div style="padding:0 56px 28px;">
-    <div class="sec-label rv">Portfolio</div>
-    <h2 class="sec-title rv2" style="margin-bottom:0;">MORE <span class="dim">FINISHED WORK</span></h2>
-  </div>
-  <div class="mosaic">
-    <div class="mosaic-item wide">
-      <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20230612_083453.jpg/:/rs=w:900,cg:true" alt="PCT garage floor" loading="lazy">
-      <div class="mosaic-overlay">
-        <div class="mosaic-type">Garage Floor</div>
-        <div class="mosaic-loc">Flake Epoxy System — Austin, TX</div>
+<!-- ════════ SIGNATURE COLORS ════════ -->
+<section id="colors" style="padding-top:30px;">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-kicker">Signature Collections</div>
+      <h2 class="sec-title">Choose your <span class="thin">finish.</span></h2>
+      <p class="sec-sub">Flake, metallic, solid, stain, multi-spec & natural accent systems — these are starting points. Custom color matching available on every job.</p>
+    </div>
+    <div class="color-filters rv" role="group" aria-label="Filter colors by collection">
+      <button class="cf-btn active" onclick="filterColors('all',this)">All</button>
+      <button class="cf-btn" onclick="filterColors('flake',this)">Flake</button>
+      <button class="cf-btn" onclick="filterColors('metallic',this)">Metallic</button>
+      <button class="cf-btn" onclick="filterColors('solid',this)">Solid</button>
+      <button class="cf-btn" onclick="filterColors('stain',this)">Stain</button>
+      <button class="cf-btn" onclick="filterColors('natural',this)">Natural Accent</button>
+      <button class="cf-btn" onclick="filterColors('multispec',this)">Multi-Spec</button>
+    </div>
+    <div class="swatches rv" id="swatchGrid">
+      <div class="swatch" data-cat="natural" onclick="chatAbout('Natural Accent in Texas Sand')">
+        <div class="swatch-chip" style="background:linear-gradient(135deg,#d8c49a 0%,#b89868 45%,#d0bc90 75%,#a8885c 100%);"></div>
+        <div class="swatch-meta"><div class="swatch-name">Texas Sand</div><div class="swatch-cat">Natural Accent</div></div>
+      </div>
+      <div class="swatch" data-cat="natural" onclick="chatAbout('Natural Accent in Cliff')">
+        <div class="swatch-chip" style="background:linear-gradient(135deg,#8a8478 0%,#6a6458 45%,#9a948a 75%,#5a5448 100%);"></div>
+        <div class="swatch-meta"><div class="swatch-name">Cliff</div><div class="swatch-cat">Natural Accent</div></div>
+      </div>
+      <div class="swatch" data-cat="flake" onclick="chatAbout('Quicksilver flake floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/Garage/FB-424-Quicksilver/_380x380_fit_center-center_none_ns/FB-424_QUICKSILVER_PILE.jpg" alt="Quicksilver flake" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Quicksilver</div><div class="swatch-cat">Flake · FB-424</div></div>
+      </div>
+      <div class="swatch" data-cat="flake" onclick="chatAbout('Stonehenge flake floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/Garage/FB-427-Stonehenge/_380x380_fit_center-center_none_ns/FB-427_STONEHENGE_PILE.jpg" alt="Stonehenge flake" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Stonehenge</div><div class="swatch-cat">Flake · FB-427</div></div>
+      </div>
+      <div class="swatch" data-cat="flake" onclick="chatAbout('Feather Gray flake floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/Greystone/FB-905-Feather%20Gray/_380x380_fit_center-center_none_ns/FB-905_FEATHER_GRAY_PILE.jpg" alt="Feather Gray flake" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Feather Gray</div><div class="swatch-cat">Flake · FB-905</div></div>
+      </div>
+      <div class="swatch" data-cat="flake" onclick="chatAbout('Houndstooth flake floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/Greystone/FB-910-Houndstooth/_380x380_fit_center-center_none_ns/FB-910_HOUNDSTOOTH_PILE.jpg" alt="Houndstooth flake" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Houndstooth</div><div class="swatch-cat">Flake · FB-910</div></div>
+      </div>
+      <div class="swatch" data-cat="flake" onclick="chatAbout('Rocky Ridge flake floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/Contemporary/FB-801-Rocky%20Ridge/_380x380_fit_center-center_none_ns/FB-801_ROCKY_RIDGE_PILE.jpg" alt="Rocky Ridge flake" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Rocky Ridge</div><div class="swatch-cat">Flake · FB-801</div></div>
+      </div>
+      <div class="swatch" data-cat="flake" onclick="chatAbout('Trail Mix flake floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/Brownstone/FB-613-Trail%20Mix/_380x380_fit_center-center_none_ns/FB-613_TRAILMIX_PILE.jpg" alt="Trail Mix flake" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Trail Mix</div><div class="swatch-cat">Flake · FB-613</div></div>
+      </div>
+      <div class="swatch" data-cat="flake" onclick="chatAbout('Cabin Fever flake floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/Signature/FB-127-Cabin%20Fever/_380x380_fit_center-center_none_ns/FB-127_CABIN_FEVER_PILE.jpg" alt="Cabin Fever flake" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Cabin Fever</div><div class="swatch-cat">Flake · FB-127</div></div>
+      </div>
+      <div class="swatch" data-cat="flake" onclick="chatAbout('Sand Dollar flake floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/Archive/FB-951%20Sand%20Dollar/_380x380_fit_center-center_none_ns/FB-951_SAND_DOLLAR_PILE.jpg" alt="Sand Dollar flake" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Sand Dollar</div><div class="swatch-cat">Flake · FB-951</div></div>
+      </div>
+      <div class="swatch" data-cat="flake" onclick="chatAbout('Shoreline flake floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/Signature/FB-421-Shoreline/_380x380_fit_center-center_none_ns/FB-421_SHORELINE_PILE.jpg" alt="Shoreline flake" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Shoreline</div><div class="swatch-cat">Flake · FB-421</div></div>
+      </div>
+      <div class="swatch" data-cat="flake" onclick="chatAbout('Tidal Wave flake floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/Signature/FB-807-Tidal%20Wave/_380x380_fit_center-center_none_ns/FB-807_TIDAL_WAVE_PILE.jpg" alt="Tidal Wave flake" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Tidal Wave</div><div class="swatch-cat">Flake · FB-807</div></div>
+      </div>
+      <div class="swatch" data-cat="flake" onclick="chatAbout('Soapstone marble flake floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/Marble/F9320-Soapstone/_380x380_fit_center-center_none_ns/F9320_SOAPSTONE_PILE.jpg" alt="Soapstone marble flake" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Soapstone</div><div class="swatch-cat">Flake · Marble</div></div>
+      </div>
+      <div class="swatch" data-cat="flake" onclick="chatAbout('Blizzard marble flake floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/Marble/FB-6001-Blizzard/_380x380_fit_center-center_none_ns/FB-6001_BLIZZARD_PILE.jpg" alt="Blizzard marble flake" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Blizzard</div><div class="swatch-cat">Flake · Marble</div></div>
+      </div>
+      <div class="swatch" data-cat="metallic" onclick="chatAbout('Chrome Silver metallic epoxy')">
+        <div class="swatch-chip" style="background:linear-gradient(125deg,#d8dce2 0%,#888e98 30%,#c8ccd4 50%,#6a7078 70%,#b8bcc4 100%);"></div>
+        <div class="swatch-meta"><div class="swatch-name">Chrome Silver</div><div class="swatch-cat">Metallic</div></div>
+      </div>
+      <div class="swatch" data-cat="metallic" onclick="chatAbout('Crimson metallic epoxy floor')">
+        <div class="swatch-chip" style="background:linear-gradient(125deg,#8a1018 0%,#d4141f 35%,#6a0a10 60%,#b01620 85%,#4a060a 100%);"></div>
+        <div class="swatch-meta"><div class="swatch-name">Crimson Fire</div><div class="swatch-cat">Metallic</div></div>
+      </div>
+      <div class="swatch" data-cat="metallic" onclick="chatAbout('Midnight Blue metallic epoxy')">
+        <div class="swatch-chip" style="background:linear-gradient(125deg,#141a3a 0%,#2a3a7a 35%,#0e1228 60%,#22306a 85%,#0a0e20 100%);"></div>
+        <div class="swatch-meta"><div class="swatch-name">Midnight Blue</div><div class="swatch-cat">Metallic</div></div>
+      </div>
+      <div class="swatch" data-cat="metallic" onclick="chatAbout('Copper Canyon metallic floor')">
+        <div class="swatch-chip" style="background:linear-gradient(125deg,#6a3a1a 0%,#c87838 35%,#4a280e 60%,#a86028 85%,#3a1e0a 100%);"></div>
+        <div class="swatch-meta"><div class="swatch-name">Copper Canyon</div><div class="swatch-cat">Metallic</div></div>
+      </div>
+      <div class="swatch" data-cat="solid" onclick="chatAbout('Onyx Black solid color floor')">
+        <div class="swatch-chip" style="background:linear-gradient(135deg,#16171a 0%,#26282e 50%,#101114 100%);"></div>
+        <div class="swatch-meta"><div class="swatch-name">Onyx Black</div><div class="swatch-cat">Solid</div></div>
+      </div>
+      <div class="swatch" data-cat="solid" onclick="chatAbout('Pearl White solid floor')">
+        <div class="swatch-chip" style="background:linear-gradient(135deg,#ece8e0 0%,#d4d0c8 50%,#e8e4dc 100%);"></div>
+        <div class="swatch-meta"><div class="swatch-name">Pearl White</div><div class="swatch-cat">Solid</div></div>
+      </div>
+      <div class="swatch" data-cat="solid" onclick="chatAbout('Slate Gray solid floor')">
+        <div class="swatch-chip" style="background:linear-gradient(135deg,#4e525a 0%,#3a3e46 50%,#565a62 100%);"></div>
+        <div class="swatch-meta"><div class="swatch-name">Slate Gray</div><div class="swatch-cat">Solid</div></div>
+      </div>
+      <div class="swatch" data-cat="stain" onclick="chatAbout('Terra Bronze concrete stain')">
+        <div class="swatch-chip" style="background:radial-gradient(ellipse at 30% 30%, #8a5a30 0%, transparent 60%), radial-gradient(ellipse at 75% 70%, #5a3a1e 0%, transparent 55%), linear-gradient(135deg,#6a4a28,#4a3018);"></div>
+        <div class="swatch-meta"><div class="swatch-name">Terra Bronze</div><div class="swatch-cat">Stain</div></div>
+      </div>
+      <div class="swatch" data-cat="stain" onclick="chatAbout('Walnut concrete stain')">
+        <div class="swatch-chip" style="background:radial-gradient(ellipse at 65% 25%, #5a4030 0%, transparent 55%), radial-gradient(ellipse at 25% 75%, #38281c 0%, transparent 60%), linear-gradient(135deg,#483424,#2e2014);"></div>
+        <div class="swatch-meta"><div class="swatch-name">Walnut</div><div class="swatch-cat">Stain</div></div>
+      </div>
+      <div class="swatch" data-cat="stain" onclick="chatAbout('Aged Leather stain finish')">
+        <div class="swatch-chip" style="background:radial-gradient(ellipse at 40% 35%, #9a6a3a 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, #6a4424 0%, transparent 60%), linear-gradient(135deg,#7e5630,#56381c);"></div>
+        <div class="swatch-meta"><div class="swatch-name">Aged Leather</div><div class="swatch-cat">Stain</div></div>
+      </div>
+      <div class="swatch" data-cat="multispec" onclick="chatAbout('Opal multi-spec floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/Greystone/FB-901-Opal/_380x380_fit_center-center_none_ns/FB-901_OPAL_PILE.jpg" alt="Opal flake blend" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Opal</div><div class="swatch-cat">Multi-Spec · FB-901</div></div>
+      </div>
+      <div class="swatch" data-cat="multispec" onclick="chatAbout('Moon Mist multi-spec floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/Greystone/FB-906-Moon%20Mist/_380x380_fit_center-center_none_ns/FB-906_MOON_MIST_PILE.jpg" alt="Moon Mist flake blend" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Moon Mist</div><div class="swatch-cat">Multi-Spec · FB-906</div></div>
+      </div>
+      <div class="swatch" data-cat="multispec" onclick="chatAbout('Caraway multi-spec floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/environment-collections/FB-939-Caraway/_380x380_fit_center-center_none_ns/FB-939_CARAWAY_PILE.jpg" alt="Caraway flake blend" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Caraway</div><div class="swatch-cat">Multi-Spec · FB-939</div></div>
+      </div>
+      <div class="swatch" data-cat="multispec" onclick="chatAbout('Woven multi-spec floor')">
+        <div class="swatch-chip"><img src="https://assets.torginol.com/uploads/Products/Flake/environment-collections/FB-919-Woven/_380x380_fit_center-center_none_ns/FB-919_WOVEN_PILE.jpg" alt="Woven flake blend" loading="lazy"></div>
+        <div class="swatch-meta"><div class="swatch-name">Woven</div><div class="swatch-cat">Multi-Spec · FB-919</div></div>
+      </div>
+      <div class="swatch" data-cat="metallic" onclick="chatAbout('Galaxy metallic epoxy')">
+        <div class="swatch-chip" style="background:linear-gradient(125deg,#1a1024 0%,#4a2a6a 30%,#120a1c 55%,#3a2058 80%,#0e0816 100%);"></div>
+        <div class="swatch-meta"><div class="swatch-name">Galaxy</div><div class="swatch-cat">Metallic</div></div>
       </div>
     </div>
-    <div class="mosaic-item">
-      <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20221202_122646.jpg/:/cr=t:16.67%25,l:0%25,w:100%25,h:66.67%25/rs=w:500,cg:true" alt="PCT tile floor" loading="lazy">
-      <div class="mosaic-overlay">
-        <div class="mosaic-type">Tile Resurfacing</div>
-        <div class="mosaic-loc">Epoxy Over Tile</div>
-      </div>
-    </div>
-    <div class="mosaic-item">
-      <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20221107_154552%20(1).jpg/:/rs=w:500,cg:true" alt="PCT floor project" loading="lazy">
-      <div class="mosaic-overlay">
-        <div class="mosaic-type">Protective Coating</div>
-        <div class="mosaic-loc">Central Texas</div>
-      </div>
-    </div>
-    <div class="mosaic-item">
-      <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20240312_171440.jpg/:/rs=w:500,cg:true" alt="PCT garage" loading="lazy">
-      <div class="mosaic-overlay">
-        <div class="mosaic-type">Garage</div>
-        <div class="mosaic-loc">2-Car Garage — 2024</div>
-      </div>
-    </div>
-    <div class="mosaic-item">
-      <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/B411.png/:/rs=w:500,cg:true" alt="PCT coating product" loading="lazy">
-      <div class="mosaic-overlay">
-        <div class="mosaic-type">Material</div>
-        <div class="mosaic-loc">Premium Coating Systems</div>
-      </div>
-    </div>
-    <div class="mosaic-item">
-      <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/Flake%20Floor.jpg/:/rs=w:500,cg:true" alt="PCT flake floor" loading="lazy">
-      <div class="mosaic-overlay">
-        <div class="mosaic-type">Vinyl Flake</div>
-        <div class="mosaic-loc">Residential Garage</div>
-      </div>
-    </div>
-    <div class="mosaic-item wide">
-      <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20240312_171455.jpg/:/rs=w:900,cg:true" alt="PCT project 2024" loading="lazy">
-      <div class="mosaic-overlay">
-        <div class="mosaic-type">2024 Project</div>
-        <div class="mosaic-loc">Full Floor Coating — Austin Area</div>
-      </div>
-    </div>
-    <div class="mosaic-item">
-      <img src="https://img1.wsimg.com/isteam/ip/0f231134-604e-4ca2-8a19-8f07d8fe5b53/20240312_171445.jpg/:/rs=w:500,cg:true" alt="PCT job site" loading="lazy">
-      <div class="mosaic-overlay">
-        <div class="mosaic-type">On-Site</div>
-        <div class="mosaic-loc">Installation Detail</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== PROCESS ===== -->
-<section id="process" class="proc-bg sec">
-  <div class="sec-label rv">How It Works</div>
-  <h2 class="sec-title rv2">OUR <span class="dim">4-STEP</span><br>PROCESS</h2>
-  <div class="proc-grid">
-    <div class="proc-step rv">
-      <div class="proc-ghost">01</div>
-      <div class="proc-badge">Step 01</div>
-      <div class="proc-title">Free Consultation</div>
-      <p class="proc-desc">Chat with our AI estimator or call us. We discuss your project, surfaces, and goals. Zero pressure, zero obligation — always.</p>
-    </div>
-    <div class="proc-step rv2">
-      <div class="proc-ghost">02</div>
-      <div class="proc-badge">Step 02</div>
-      <div class="proc-title">On-Site Assessment</div>
-      <p class="proc-desc">Our technicians inspect your surface, take measurements, and deliver a detailed written quote. We walk you through every coating option in person.</p>
-    </div>
-    <div class="proc-step rv3">
-      <div class="proc-ghost">03</div>
-      <div class="proc-badge">Step 03</div>
-      <div class="proc-title">Expert Installation</div>
-      <p class="proc-desc">Full surface prep — cleaning, grinding, crack repair, priming. Then precise coating application using only professional-grade materials and systems.</p>
-    </div>
-    <div class="proc-step rv">
-      <div class="proc-ghost">04</div>
-      <div class="proc-badge">Step 04</div>
-      <div class="proc-title">Final Walkthrough</div>
-      <p class="proc-desc">We inspect every inch with you before we leave. 100% satisfaction or we're not done. That's the Precision Coatings guarantee — always.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SIGNATURE COLORS ===== -->
-<section id="colors" class="sec">
-  <div class="sec-label rv">Signature Collections</div>
-  <h2 class="sec-title rv2">CHOOSE YOUR<br><span class="dim">FINISH</span></h2>
-  <div class="swatches">
-    <div class="swatch"><div class="swatch-face" style="background:linear-gradient(135deg,#c0c0c0,#707070,#c0c0c0,#505050);"></div><div class="swatch-info"><div class="swatch-name">Chrome Silver</div><div class="swatch-cat">Metallic</div></div></div>
-    <div class="swatch"><div class="swatch-face" style="background:linear-gradient(135deg,#8b1a1a,#c0121c,#8b1a1a,#500a0a);"></div><div class="swatch-info"><div class="swatch-name">Crimson Fire</div><div class="swatch-cat">Metallic</div></div></div>
-    <div class="swatch"><div class="swatch-face" style="background:linear-gradient(135deg,#101010,#303030,#101010);"></div><div class="swatch-info"><div class="swatch-name">Onyx Black</div><div class="swatch-cat">Solid</div></div></div>
-    <div class="swatch"><div class="swatch-face" style="background:repeating-conic-gradient(#888 0% 25%,#bbb 25% 50%) 0 0/18px 18px;"></div><div class="swatch-info"><div class="swatch-name">Classic Flake</div><div class="swatch-cat">Vinyl Flake</div></div></div>
-    <div class="swatch"><div class="swatch-face" style="background:linear-gradient(135deg,#1a1a3a,#2a2a6a,#1a1a3a);"></div><div class="swatch-info"><div class="swatch-name">Midnight Blue</div><div class="swatch-cat">Metallic</div></div></div>
-    <div class="swatch"><div class="swatch-face" style="background:linear-gradient(135deg,#d4c48a,#a08040,#d4c48a);"></div><div class="swatch-info"><div class="swatch-name">Texas Sand</div><div class="swatch-cat">Natural Accent</div></div></div>
-    <div class="swatch"><div class="swatch-face" style="background:repeating-conic-gradient(#c0121c 0% 25%,#1a1a1a 25% 50%) 0 0/18px 18px;opacity:.9;"></div><div class="swatch-info"><div class="swatch-name">Red Flake</div><div class="swatch-cat">Vinyl Flake</div></div></div>
-    <div class="swatch"><div class="swatch-face" style="background:linear-gradient(135deg,#e8e0d0,#c8c0b0,#e8e0d0);"></div><div class="swatch-info"><div class="swatch-name">Pearl White</div><div class="swatch-cat">Solid</div></div></div>
-    <div class="swatch"><div class="swatch-face" style="background:linear-gradient(135deg,#c8a06a,#8a6030,#c8a06a);"></div><div class="swatch-info"><div class="swatch-name">Cliff</div><div class="swatch-cat">Natural Accent</div></div></div>
-    <div class="swatch"><div class="swatch-face" style="background:repeating-conic-gradient(#555 0% 25%,#999 25% 50%) 0 0/18px 18px;"></div><div class="swatch-info"><div class="swatch-name">Storm Gray</div><div class="swatch-cat">Multi-Spec</div></div></div>
-    <div class="swatch"><div class="swatch-face" style="background:linear-gradient(135deg,#1a2a1a,#2a5a2a,#1a2a1a);"></div><div class="swatch-info"><div class="swatch-name">Forest</div><div class="swatch-cat">Metallic</div></div></div>
-    <div class="swatch"><div class="swatch-face" style="background:linear-gradient(135deg,#3a2a1a,#7a5030,#3a2a1a);"></div><div class="swatch-info"><div class="swatch-name">Terra Bronze</div><div class="swatch-cat">Stain</div></div></div>
-  </div>
-  <div style="text-align:center;margin-top:28px;">
-    <a href="#" class="btn-ghost" onclick="openChat();return false;">Discuss custom colors with our AI estimator →</a>
-  </div>
-</section>
-
-<!-- ===== TESTIMONIALS ===== -->
-<section id="reviews" class="testi-bg sec">
-  <div class="sec-label rv">Client Reviews</div>
-  <h2 class="sec-title rv2">WHAT TEXAS<br><span class="dim">IS SAYING</span></h2>
-  <div class="testi-grid">
-    <div class="t-card rv">
-      <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-      <p class="t-text">"Precision Coatings transformed our garage into something we show off to every guest. The flake system looks incredible and has held up perfectly through Texas heat and heavy use."</p>
-      <div class="t-author"><div class="t-av">JR</div><div><div class="t-name">James R.</div><div class="t-loc">Cedar Park, TX</div></div></div>
-    </div>
-    <div class="t-card rv2">
-      <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-      <p class="t-text">"Had them coat our entire patio and back area. The natural accent color matched perfectly with our landscaping. On time, professional, and the finish is gorgeous. Highly recommend."</p>
-      <div class="t-author"><div class="t-av">SM</div><div><div class="t-name">Sarah M.</div><div class="t-loc">Round Rock, TX</div></div></div>
-    </div>
-    <div class="t-card rv3">
-      <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
-      <p class="t-text">"From the free estimate to the final walkthrough — flawless experience. The team is professional, clean, and genuinely cares about quality. I've already sent three neighbors their way."</p>
-      <div class="t-author"><div class="t-av">DT</div><div><div class="t-name">David T.</div><div class="t-loc">Austin, TX</div></div></div>
+    <div style="text-align:center;margin-top:36px;" class="rv">
+      <button class="btn btn-ghost" onclick="openChat()">Discuss Custom Colors with Our AI Estimator →</button>
     </div>
   </div>
 </section>
 
-<!-- ===== CTA BAND ===== -->
+<!-- ════════ PROCESS ════════ -->
+<section id="process" class="process-band">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-kicker">How It Works</div>
+      <h2 class="sec-title">Four steps.<br><span class="thin">Zero hassle.</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step rv">
+        <div class="step-chip">💬</div>
+        <div class="step-name">Free Consultation</div>
+        <p class="step-desc">Chat with our AI estimator below or call us direct. Tell us about your surface — no pressure, no obligation.</p>
+      </div>
+      <div class="step rv">
+        <div class="step-chip">📐</div>
+        <div class="step-name">On-Site Assessment</div>
+        <p class="step-desc">We inspect your surface, take measurements, and deliver a detailed written quote with coating options.</p>
+      </div>
+      <div class="step rv">
+        <div class="step-chip">🛠</div>
+        <div class="step-name">Expert Installation</div>
+        <p class="step-desc">Full prep — grinding, repair, priming — then precision coating application with professional-grade systems.</p>
+      </div>
+      <div class="step rv">
+        <div class="step-chip">✅</div>
+        <div class="step-name">Final Walkthrough</div>
+        <p class="step-desc">We inspect every inch with you before we leave. 100% satisfaction — that's the PCT guarantee.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ TESTIMONIALS ════════ -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-kicker">Client Reviews</div>
+      <h2 class="sec-title">Texas <span class="thin">approved.</span></h2>
+    </div>
+    <div class="testis">
+      <div class="testi rv">
+        <div class="testi-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="testi-text">Our old cast iron tub was reglazed and the result was stunning — it genuinely looks brand new. I'd recommend Precision Coatings to anyone without hesitation.</p>
+        <div class="testi-who">
+          <div class="testi-av" aria-hidden="true">TB</div>
+          <div><div class="testi-name">Tub Reglazing Client</div><div class="testi-loc">Verified Review · Thumbtack</div></div>
+        </div>
+      </div>
+      <div class="testi rv">
+        <div class="testi-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="testi-text">Chris arrived exactly when promised, kept the entire work area spotless, and communicated every step. The tub resurfacing looks wonderful.</p>
+        <div class="testi-who">
+          <div class="testi-av" aria-hidden="true">TR</div>
+          <div><div class="testi-name">Tub Resurfacing Client</div><div class="testi-loc">Verified Review · Thumbtack</div></div>
+        </div>
+      </div>
+      <div class="testi rv">
+        <div class="testi-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="testi-text">I wanted new countertops but resurfacing turned out far more economical. They changed the whole look of my bathroom in a single day — then came back to make sure I was satisfied.</p>
+        <div class="testi-who">
+          <div class="testi-av" aria-hidden="true">KF</div>
+          <div><div class="testi-name">Kimberly F.</div><div class="testi-loc">Verified Review · HomeAdvisor</div></div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:24px;font-size:12px;color:var(--muted);">Rated 5.0 on HomeAdvisor · Top Pro on Thumbtack · Reviews paraphrased from verified public profiles</p>
+  </div>
+</section>
+
+<!-- ════════ CTA BAND ════════ -->
 <div class="cta-band rv">
   <div>
-    <div class="cta-title">READY TO COAT<br>YOUR SPACE?</div>
-    <div class="cta-sub">Free on-site estimates. No obligation. Serving Austin &amp; Central Texas.</div>
+    <h2 class="cta-title">Ready to transform<br>your surface?</h2>
+    <p class="cta-sub">Free on-site estimates · Open 7 days a week · Warranty backed · Serving Austin & Central Texas</p>
   </div>
   <div class="cta-actions">
-    <a href="#" class="btn-white" onclick="openChat();return false;">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <button class="btn btn-white btn-lg" onclick="openChat()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       Chat with AI Estimator
-    </a>
-    <a href="tel:5125377951" class="btn-white-ol">📞 512-537-7951</a>
+    </button>
+    <a href="tel:5125377951" class="btn btn-white-ol btn-lg">📞 512-537-7951</a>
   </div>
 </div>
 
-<!-- ===== FOOTER ===== -->
+<!-- ════════ FOOTER ════════ -->
 <footer>
   <div class="foot-grid">
     <div>
-      <div class="foot-brand">PRECISION <span>COATINGS</span> TX</div>
-      <p class="foot-tag">Transforming surfaces across Central Texas with precision, premium materials, and unmatched craftsmanship since 2014.</p>
+      <div class="foot-brand-name">PRECISION <em>COATINGS</em> TX</div>
+      <p class="foot-about">Transforming Surfaces With Precision. Locally owned & operated, serving Austin & Central Texas with premium materials and meticulous craftsmanship. Warranties on our work.</p>
       <div class="foot-contact">
-        <a href="tel:5125377951"><span>📞</span> 512-537-7951</a>
-        <a href="mailto:precisioncoatingsoftx@gmail.com"><span>✉️</span> precisioncoatingsoftx@gmail.com</a>
-        <div><span>📍</span> Austin, Texas</div>
+        <a href="tel:5125377951"><span aria-hidden="true">📞</span> 512-537-7951</a>
+        <a href="mailto:precisioncoatingsoftx@gmail.com"><span aria-hidden="true">✉️</span> precisioncoatingsoftx@gmail.com</a>
+        <div><span aria-hidden="true">📍</span> Hutto, TX · Serving Austin & Central Texas</div>
+        <div><span aria-hidden="true">💳</span> Cash · Check · Card · Square · Zelle</div>
       </div>
     </div>
     <div>
-      <div class="foot-col-h">Services</div>
+      <div class="foot-h">Services</div>
       <ul class="foot-links">
-        <li><a href="#">Patios</a></li>
-        <li><a href="#">Garages</a></li>
-        <li><a href="#">Tile Floors</a></li>
-        <li><a href="#">Countertops</a></li>
-        <li><a href="#">Tubs & Vanities</a></li>
-        <li><a href="#">Cabinet Refinishing</a></li>
+        <li><a href="#services">Garages</a></li>
+        <li><a href="#services">Patios</a></li>
+        <li><a href="#services">Tile</a></li>
+        <li><a href="#services">Tubs</a></li>
+        <li><a href="#services">Vanities</a></li>
+        <li><a href="#services">Countertops</a></li>
+        <li><a href="#services">Cabinets</a></li>
       </ul>
     </div>
     <div>
-      <div class="foot-col-h">Color Collections</div>
+      <div class="foot-h">Company</div>
       <ul class="foot-links">
-        <li><a href="https://coattexas.com/multi-spec">Multi-Spec</a></li>
-        <li><a href="https://coattexas.com/flake-1">Flake Collection</a></li>
-        <li><a href="https://coattexas.com/metallic">Metallic Series</a></li>
-        <li><a href="https://coattexas.com/solid-color-chart">Solid Color Chart</a></li>
-        <li><a href="https://coattexas.com/stains">Stains</a></li>
+        <li><a href="#work">Our Work</a></li>
+        <li><a href="#process">Our Process</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="https://coattexas.com/privacy-policy">Privacy Policy</a></li>
+        <li><a href="https://coattexas.com/terms-and-conditions">Terms & Conditions</a></li>
       </ul>
     </div>
     <div>
-      <div class="foot-col-h">Business Hours</div>
+      <div class="foot-h">Hours — Open 7 Days</div>
       <ul class="foot-links">
-        <li><a href="#">Mon–Fri: 8:00am – 6:30pm</a></li>
-        <li><a href="#">Saturday: By Appointment</a></li>
-        <li><a href="#">Sunday: Closed</a></li>
+        <li><a href="#">Mon–Fri: 8:00am – 6:00pm</a></li>
+        <li><a href="#">Saturday: 8:00am – 12:00pm</a></li>
+        <li><a href="#">Sunday: 8:00am – 12:00pm</a></li>
+        <li style="margin-top:14px;"><a href="#" style="color:var(--red2);">✓ Free On-Site Estimates</a></li>
+        <li><a href="#" style="color:var(--red2);">✓ Seasonal Discounts</a></li>
+        <li><a href="#" style="color:var(--red2);">✓ Warranty Backed</a></li>
       </ul>
-      <div style="margin-top:20px;">
-        <div class="foot-col-h">Company</div>
-        <ul class="foot-links">
-          <li><a href="https://coattexas.com/gallery">Gallery</a></li>
-          <li><a href="https://coattexas.com/privacy-policy">Privacy Policy</a></li>
-          <li><a href="https://coattexas.com/terms-and-conditions">Terms & Conditions</a></li>
-        </ul>
-      </div>
     </div>
   </div>
   <div class="foot-bottom">
     <div class="foot-copy">© 2025 Precision Coatings of Texas LLC · All Rights Reserved</div>
-    <div class="foot-copy">Austin, TX · <span>512-537-7951</span> · coattexas.com</div>
+    <div class="foot-copy">Hutto, TX · <span>512-537-7951</span> · coattexas.com</div>
   </div>
 </footer>
 
-<!-- ===== CHAT FAB ===== -->
-<div class="chat-fab">
-  <div class="chat-bubble" id="chatBubble">👋 Free estimate — takes 2 minutes!</div>
-  <button class="chat-fab-btn" id="chatFab" onclick="toggleChat()" aria-label="Open AI estimator">
-    <svg viewBox="0 0 24 24" id="fabIco"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <div class="fab-dot"></div>
+<!-- ════════ MOBILE STICKY BAR ════════ -->
+<div class="mobile-bar">
+  <a href="tel:5125377951" class="btn btn-ghost btn-sm">📞 Call Now</a>
+  <button class="btn btn-red btn-sm" onclick="openChat()">Free Estimate</button>
+</div>
+
+<!-- ════════ CHAT WIDGET ════════ -->
+<div class="chat-fab-wrap">
+  <div class="chat-hint" id="chatHint"><strong>👋 Free estimate</strong> in about 2 minutes — no phone call needed.</div>
+  <button class="chat-fab" id="chatFab" onclick="toggleChat()" aria-label="Open AI estimator chat">
+    <svg viewBox="0 0 24 24" id="fabIco" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span class="chat-dot" aria-hidden="true"></span>
   </button>
 </div>
 
-<!-- ===== CHAT WINDOW ===== -->
-<div class="chat-win" id="chatWin">
+<div class="chat-win" id="chatWin" role="dialog" aria-label="AI Estimator chat">
   <div class="chat-hdr">
-    <div class="chat-av">PC</div>
+    <div class="chat-av" aria-hidden="true">PCT</div>
     <div>
-      <div class="chat-hdr-name">Precision AI Estimator</div>
-      <div class="chat-hdr-status">Online · Responds instantly</div>
+      <div class="chat-name">PCT AI Estimator</div>
+      <div class="chat-status">Online · Instant replies</div>
     </div>
-    <button class="chat-x" onclick="toggleChat()">✕</button>
+    <button class="chat-x" onclick="toggleChat()" aria-label="Close chat">✕</button>
   </div>
-  <div class="chat-msgs" id="chatMsgs"></div>
+  <div class="chat-msgs" id="chatMsgs" aria-live="polite"></div>
   <div class="qr-row" id="qrRow"></div>
   <div class="chat-inp-row">
-    <textarea class="chat-inp" id="chatInp" placeholder="Ask about services or get a free estimate..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-    <button class="chat-send" id="sendBtn" onclick="sendMsg()">
-      <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+    <textarea class="chat-inp" id="chatInp" placeholder="Ask about services or get a free estimate..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)" aria-label="Type your message"></textarea>
+    <button class="chat-send" id="sendBtn" onclick="sendMsg()" aria-label="Send message">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
     </button>
   </div>
 </div>
 
 <script>
-/* ====== CURSOR ====== */
-const C=document.getElementById('cur'),CR=document.getElementById('curR');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;C.style.left=mx+'px';C.style.top=my+'px';});
-(function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;CR.style.left=rx+'px';CR.style.top=ry+'px';requestAnimationFrame(a);})();
-document.querySelectorAll('a,button,.svc-card,.swatch,.ph,.mosaic-item').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{C.style.width='18px';C.style.height='18px';CR.style.width='50px';CR.style.height='50px';CR.style.borderColor='rgba(192,18,28,.65)';});
-  el.addEventListener('mouseleave',()=>{C.style.width='10px';C.style.height='10px';CR.style.width='32px';CR.style.height='32px';CR.style.borderColor='rgba(192,18,28,.45)';});
-});
+/* ══════ SCROLL REVEAL ══════ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
 
-/* ====== SCROLL REVEAL ====== */
-const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}});},{threshold:.1});
-document.querySelectorAll('.rv,.rv2,.rv3').forEach(el=>io.observe(el));
+/* ══════ BEFORE/AFTER SLIDER ══════ */
+(function(){
+  const slider = document.getElementById('baSlider');
+  const after  = document.getElementById('baAfter');
+  const divider= document.getElementById('baDivider');
+  const handle = document.getElementById('baHandle');
+  let pos = 50, dragging = false;
 
-/* ====== CHAT ====== */
-let chatOpen=false,busy=false,hist=[],lead={};
+  function setPos(p){
+    pos = Math.max(2, Math.min(98, p));
+    after.style.clipPath = `inset(0 0 0 ${pos}%)`;
+    divider.style.left = pos + '%';
+    handle.style.left = pos + '%';
+    slider.setAttribute('aria-valuenow', Math.round(pos));
+  }
+  function posFromEvent(e){
+    const rect = slider.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    return (x / rect.width) * 100;
+  }
+  slider.addEventListener('pointerdown', e => { dragging = true; slider.setPointerCapture(e.pointerId); setPos(posFromEvent(e)); });
+  slider.addEventListener('pointermove', e => { if (dragging) setPos(posFromEvent(e)); });
+  slider.addEventListener('pointerup',   () => dragging = false);
+  slider.addEventListener('pointercancel',() => dragging = false);
+  /* keyboard a11y */
+  slider.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  { setPos(pos - 4); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { setPos(pos + 4); e.preventDefault(); }
+  });
+  setPos(50);
+})();
 
-setTimeout(()=>{const b=document.getElementById('chatBubble');if(b)b.style.display='none';},6000);
+/* ══════ COLOR FILTER ══════ */
+function filterColors(cat, btn){
+  document.querySelectorAll('.cf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#swatchGrid .swatch').forEach(s=>{
+    s.classList.toggle('hide', cat!=='all' && s.dataset.cat!==cat);
+  });
+}
+
+/* ══════ CHAT ══════ */
+let chatOpen=false, busy=false, hist=[], lead={};
+setTimeout(()=>{ const h=document.getElementById('chatHint'); if(h) h.style.display='none'; }, 7000);
 
 function toggleChat(){
   chatOpen=!chatOpen;
@@ -1016,126 +1109,130 @@ function toggleChat(){
   document.getElementById('chatFab').classList.toggle('open',chatOpen);
   const ic=document.getElementById('fabIco');
   if(chatOpen){
-    ic.innerHTML='<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>';
-    if(!hist.length)initChat();
-    setTimeout(()=>document.getElementById('chatInp').focus(),300);
+    ic.innerHTML='<line x1="18" y1="6" x2="6" y2="18" stroke="#fff" stroke-width="2.5"/><line x1="6" y1="6" x2="18" y2="18" stroke="#fff" stroke-width="2.5"/>';
+    if(!hist.length) initChat();
+    setTimeout(()=>document.getElementById('chatInp').focus(),320);
   } else {
     ic.innerHTML='<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>';
   }
 }
-function openChat(){if(!chatOpen)toggleChat();}
+function openChat(){ if(!chatOpen) toggleChat(); }
+function chatAbout(topic){ openChat(); if(hist.length) sendUserMsg('Tell me about '+topic); else setTimeout(()=>sendUserMsg('Tell me about '+topic), 600); }
 
 function initChat(){
-  addBot("Hey! 👋 I'm the Precision Coatings AI estimator. I can help you get a free quote, answer questions about our services, or schedule a consultation.\n\nWhat can I help you with today?");
-  setTimeout(()=>showQR(['Get a free estimate','Garage floor','Patio coating','Tile refinishing']),500);
+  addBot("Hey! 👋 I'm the PCT AI estimator. I can get you a free quote, answer questions about any of our services, or schedule a consultation.\n\nWhat surface are we transforming today?");
+  setTimeout(()=>showQR(['Get a free estimate','Garage floor','Patio','Tub or vanity','Cabinets or countertops']),500);
 }
-
 function showQR(opts){
-  const r=document.getElementById('qrRow');r.innerHTML='';
-  opts.forEach(o=>{const b=document.createElement('button');b.className='qr';b.textContent=o;b.onclick=()=>{r.innerHTML='';sendUserMsg(o);};r.appendChild(b);});
+  const r=document.getElementById('qrRow'); r.innerHTML='';
+  opts.forEach(o=>{
+    const b=document.createElement('button');
+    b.className='qr'; b.textContent=o;
+    b.onclick=()=>{ r.innerHTML=''; sendUserMsg(o); };
+    r.appendChild(b);
+  });
 }
-
 function addBot(txt){
   const m=document.getElementById('chatMsgs');
-  const t=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-  const d=document.createElement('div');d.className='msg bot';
-  d.innerHTML=`<div class="msg-av">🔴</div><div><div class="msg-bub">${txt.replace(/\n/g,'<br>')}</div><div class="msg-t">${t}</div></div>`;
-  m.appendChild(d);m.scrollTop=m.scrollHeight;
+  const d=document.createElement('div'); d.className='msg bot';
+  d.innerHTML=`<div class="msg-av">🔴</div><div class="msg-bub">${txt.replace(/\n/g,'<br>')}</div>`;
+  m.appendChild(d); m.scrollTop=m.scrollHeight;
 }
-
 function addUser(txt){
   const m=document.getElementById('chatMsgs');
-  const t=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-  const d=document.createElement('div');d.className='msg user';
-  d.innerHTML=`<div class="msg-av">👤</div><div><div class="msg-bub">${txt}</div><div class="msg-t">${t}</div></div>`;
-  m.appendChild(d);m.scrollTop=m.scrollHeight;
+  const d=document.createElement('div'); d.className='msg user';
+  d.innerHTML=`<div class="msg-av">👤</div><div class="msg-bub">${txt}</div>`;
+  m.appendChild(d); m.scrollTop=m.scrollHeight;
 }
-
 function showTyping(){
   const m=document.getElementById('chatMsgs');
-  const d=document.createElement('div');d.className='msg bot';d.id='typer';
-  d.innerHTML=`<div class="msg-av">🔴</div><div class="typing"><div class="typing-bub"><span></span><span></span><span></span></div></div>`;
-  m.appendChild(d);m.scrollTop=m.scrollHeight;
+  const d=document.createElement('div'); d.className='msg bot'; d.id='typer';
+  d.innerHTML=`<div class="msg-av">🔴</div><div class="typing-bub"><span></span><span></span><span></span></div>`;
+  m.appendChild(d); m.scrollTop=m.scrollHeight;
 }
-function rmTyping(){const t=document.getElementById('typer');if(t)t.remove();}
-
-function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
-function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,88)+'px';}
-
+function rmTyping(){ const t=document.getElementById('typer'); if(t) t.remove(); }
+function handleKey(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendMsg(); } }
+function autoResize(el){ el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,90)+'px'; }
 function sendMsg(){
   const inp=document.getElementById('chatInp');
   const txt=inp.value.trim();
-  if(!txt||busy)return;
-  inp.value='';inp.style.height='auto';
+  if(!txt||busy) return;
+  inp.value=''; inp.style.height='auto';
   sendUserMsg(txt);
 }
 
 async function sendUserMsg(txt){
   document.getElementById('qrRow').innerHTML='';
-  addUser(txt);hist.push({role:'user',content:txt});
-  busy=true;document.getElementById('sendBtn').disabled=true;
+  addUser(txt); hist.push({role:'user',content:txt});
+  busy=true; document.getElementById('sendBtn').disabled=true;
   setTimeout(showTyping,180);
 
-  const sys=`You are the AI estimator and client intake assistant for Precision Coatings of Texas LLC — a professional floor coating and surface refinishing company based in Austin, Texas.
+  const sys=`You are the AI estimator and client intake assistant for Precision Coatings of Texas LLC — a professional surface coating and refinishing company in Austin, Texas.
 
-Your job: Help potential clients get free estimates, answer service questions, and collect lead info naturally for the PCT team to follow up.
+Services offered (the ONLY seven services):
+• Garages — flake, metallic epoxy, solid color, natural accent floor systems
+• Patios — overlays, stains, non-slip outdoor coatings
+• Tile — epoxy resurfacing over existing tile, no demo needed
+• Tubs — reglazing, chip & rust repair
+• Vanities — bathroom vanity refinishing
+• Countertops — kitchen/bath countertop & backsplash refinishing
+• Cabinets — kitchen & bathroom cabinet refinishing
 
-Services offered:
-• Patios — vinyl flake, natural accents (Texas Sand, Cliff colors), stains, solid colors
-• Garages — metallic epoxy, solid color, natural accents, vinyl flake systems
-• Tile floors — epoxy resurfacing, vinyl flake broadcast, multi-spec
-• Countertops & backsplash refinishing
-• Tub and vanity refinishing
-• Cabinet refinishing
-• Sinks refinishing
-
-General pricing (always recommend free on-site estimate for accuracy):
+General pricing (always recommend free on-site estimate):
 • 2-car garage flake system: $1,200–$1,800
 • 2-car garage metallic: $1,800–$2,800
-• Patio coating: $3–$6 per sq ft
-• Tile resurfacing: quoted on site
-• All prices include full surface prep and 2-coat system
+• Patio coating: $3–$6/sq ft
+• Tub reglazing: $450–$700
+• Vanity refinishing: $300–$600
+• Countertop refinishing: $35–$50/sq ft
+• Cabinet refinishing: quoted by door/drawer count
+• All include surface prep
 
-Lead info to collect (one question at a time, naturally): name → phone or email → surface type (garage, patio, tile, etc.) → approximate sq footage → desired timeline
+Lead info to collect naturally (ONE question at a time): name → phone or email → which surface → approx size → timeline.
+Once you have name + contact, confirm the PCT team will reach out within 24 business hours.
 
-Once you have name + contact info, confirm the PCT team will reach out within 24 business hours.
+Business facts (verified):
+• Based in Hutto, TX — serving Austin & all of Central Texas
+• Hours: Mon–Fri 8am–6pm, Sat 8am–12pm, Sun 8am–12pm (open 7 days!)
+• Free on-site estimates — never a charge
+• Seasonal discounts offered throughout the year
+• Warranties on workmanship
+• Payment: Cash, Check, Credit Card, Square, Zelle
+• Locally owned & operated · Rated 5.0 on HomeAdvisor · Top Pro on Thumbtack
 
-Business hours: Mon–Fri 8am–6:30pm
-Phone: 512-537-7951 | Email: precisioncoatingsoftx@gmail.com | Location: Austin, TX
+Contact: 512-537-7951 | precisioncoatingsoftx@gmail.com
+Keep replies warm, concise (2–4 sentences), never pushy.
 
-Keep responses warm, concise, and conversational — 2–4 sentences max unless explaining pricing or process. Never be pushy.
-
-Collected lead info: ${JSON.stringify(lead)}`;
+Lead info collected so far: ${JSON.stringify(lead)}`;
 
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST', headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sys,messages:hist})
     });
-    const data=await res.json();rmTyping();
-    const reply=data.content?.[0]?.text||"Quick hiccup — please call us at 512-537-7951 and we'll get you squared away!";
-    hist.push({role:'assistant',content:reply});addBot(reply);
+    const data=await res.json(); rmTyping();
+    const reply=data.content?.[0]?.text||"Quick hiccup — call us at 512-537-7951 and we'll get you squared away!";
+    hist.push({role:'assistant',content:reply}); addBot(reply);
 
-    // Extract lead info
-    const em=txt.match(/[\w.-]+@[\w.-]+\.\w+/);if(em)lead.email=em[0];
-    const ph=txt.match(/(\d{3}[-.\s]?\d{3}[-.\s]?\d{4})/);if(ph)lead.phone=ph[0];
-    const sf=txt.match(/(\d+)\s*(sq|square|sf)/i);if(sf)lead.sqft=sf[1];
+    const em=txt.match(/[\w.-]+@[\w.-]+\.\w+/); if(em) lead.email=em[0];
+    const ph=txt.match(/(\d{3}[-.\s]?\d{3}[-.\s]?\d{4})/); if(ph) lead.phone=ph[0];
+    const sf=txt.match(/(\d+)\s*(sq|square|sf)/i); if(sf) lead.sqft=sf[1];
 
-    // Smart follow-up chips
     const combo=(txt+' '+reply).toLowerCase();
     let qrs=[];
-    if(hist.length<=3)qrs=['Get free estimate','Garage floor','Patio coating','Tile resurfacing'];
-    else if(combo.includes('garage'))qrs=['Flake or metallic?','How long does it take?','Price range?','Schedule a visit'];
-    else if(combo.includes('patio'))qrs=['What colors for patio?','Timeline?','Natural accent options'];
-    else if(combo.includes('tile'))qrs=['Tile price range?','How long does it take?','Get quote'];
-    else if(combo.includes('price')||combo.includes('cost')||combo.includes('estimate'))qrs=['Schedule on-site estimate','What info do you need?'];
-    else if(hist.length>7)qrs=['Schedule a call','📞 512-537-7951'];
-    if(qrs.length)setTimeout(()=>showQR(qrs),400);
+    if(hist.length<=3) qrs=['Get free estimate','Garage floor','Patio','Tub refinishing'];
+    else if(combo.includes('garage')) qrs=['Flake or metallic?','Price range?','Schedule a visit'];
+    else if(combo.includes('patio')) qrs=['Patio colors?','Timeline?','Get quote'];
+    else if(combo.includes('tub')||combo.includes('vanity')) qrs=['How long does it take?','Price range?','Schedule a visit'];
+    else if(combo.includes('cabinet')||combo.includes('countertop')) qrs=['How does refinishing work?','Price range?','Get quote'];
+    else if(combo.includes('price')||combo.includes('estimate')) qrs=['Schedule on-site estimate','What info do you need?'];
+    else if(hist.length>7) qrs=['Schedule a call','📞 512-537-7951'];
+    if(qrs.length) setTimeout(()=>showQR(qrs),400);
   }catch(err){
     rmTyping();
-    addBot("Quick hiccup on my end! Reach us directly at <strong>512-537-7951</strong> or <strong>precisioncoatingsoftx@gmail.com</strong> — we're here Mon–Fri 8am–6:30pm.");
+    addBot("Quick hiccup on my end! Reach us at <strong>512-537-7951</strong> or <strong>precisioncoatingsoftx@gmail.com</strong> — Mon–Fri 8am–6:30pm.");
   }
-  busy=false;document.getElementById('sendBtn').disabled=false;
+  busy=false; document.getElementById('sendBtn').disabled=false;
   document.getElementById('chatInp').focus();
 }
 </script>
