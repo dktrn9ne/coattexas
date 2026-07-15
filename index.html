@@ -1145,7 +1145,7 @@ footer { padding:70px clamp(20px,4vw,48px) 36px; border-top:1px solid var(--bord
             </div>
           </div>
         </div>
-        <div class="viz-status" id="visualizerStatus">Waiting for a project photo. <span>LOCAL PREVIEW</span></div>
+        <div class="viz-status" id="visualizerStatus">Waiting for a project photo. <span>AI PREVIEW</span></div>
       </div>
     </div>
   </div>
@@ -1388,22 +1388,24 @@ function filterColors(cat, btn){
   const downloadBtn = document.getElementById('visualizerDownload');
   const surfaceButtons = document.querySelectorAll('#visualizerSurface .viz-choice');
   let projectImage = null;
+  let projectDataUrl = '';
+  let generatedDataUrl = '';
   let activeSurface = 'Garage Floor';
 
   const finishes = {
-    quicksilver: { name:'Quicksilver Flake', colors:['#2d3035','#f2f3f4','#8e949d','#111317'], blend:'source-atop', alpha:.58, specks:true },
-    stonehenge: { name:'Stonehenge Flake', colors:['#333431','#d5d0c3','#8f8a7c','#f6f0df'], blend:'source-atop', alpha:.56, specks:true },
-    shoreline: { name:'Shoreline Flake', colors:['#4c5962','#e3ded1','#a8b4ba','#26333b'], blend:'source-atop', alpha:.54, specks:true },
-    chrome: { name:'Chrome Silver Metallic', colors:['#59606a','#d9dde3','#8b929d','#f7f9fb'], blend:'screen', alpha:.44, metallic:true },
-    copper: { name:'Copper Canyon Metallic', colors:['#522812','#c87838','#7c421e','#f0a15a'], blend:'overlay', alpha:.46, metallic:true },
-    slate: { name:'Slate Gray Solid', colors:['#30343a','#5f6670','#1e2228'], blend:'source-atop', alpha:.52 },
-    pearl: { name:'Pearl White Solid', colors:['#e9e5dc','#f8f6ef','#cfc9bd'], blend:'screen', alpha:.5 },
-    'texas-sand': { name:'Texas Sand Natural Accent', colors:['#d2bd90','#a98758','#f0ddb3','#7f643d'], blend:'overlay', alpha:.5, specks:true },
-    walnut: { name:'Walnut Stain', colors:['#3b2416','#6f4327','#9a6335','#24160d'], blend:'multiply', alpha:.34, metallic:true }
+    quicksilver: { name:'Quicksilver Flake', colors:['#2d3035','#f2f3f4','#8e949d','#111317'] },
+    stonehenge: { name:'Stonehenge Flake', colors:['#333431','#d5d0c3','#8f8a7c','#f6f0df'] },
+    shoreline: { name:'Shoreline Flake', colors:['#4c5962','#e3ded1','#a8b4ba','#26333b'] },
+    chrome: { name:'Chrome Silver Metallic', colors:['#59606a','#d9dde3','#8b929d','#f7f9fb'] },
+    copper: { name:'Copper Canyon Metallic', colors:['#522812','#c87838','#7c421e','#f0a15a'] },
+    slate: { name:'Slate Gray Solid', colors:['#30343a','#5f6670','#1e2228'] },
+    pearl: { name:'Pearl White Solid', colors:['#e9e5dc','#f8f6ef','#cfc9bd'] },
+    'texas-sand': { name:'Texas Sand Natural Accent', colors:['#d2bd90','#a98758','#f0ddb3','#7f643d'] },
+    walnut: { name:'Walnut Stain', colors:['#3b2416','#6f4327','#9a6335','#24160d'] }
   };
 
   function setStatus(message, tag){
-    status.innerHTML = `${message} <span>${tag || 'LOCAL PREVIEW'}</span>`;
+    status.innerHTML = `${message} <span>${tag || 'AI PREVIEW'}</span>`;
   }
 
   function selectedFinish(){
@@ -1415,179 +1417,135 @@ function filterColors(cat, btn){
     finishPreview.style.background = `linear-gradient(135deg, ${f.colors.join(',')})`;
   }
 
-  function loadFile(file){
-    if (!file) return;
-    if (!file.type.startsWith('image/')) {
-      setStatus('Please upload an image file.', 'TRY AGAIN');
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = () => {
-      const img = new Image();
-      img.onload = () => {
-        projectImage = img;
-        title.textContent = file.name;
-        empty.style.display = 'none';
-        renderPreview(false);
-        setStatus('Photo loaded. Choose a finish and generate a preview.', 'READY');
-      };
-      img.onerror = () => setStatus('This image could not be loaded in the browser.', 'TRY AGAIN');
-      img.src = reader.result;
-    };
-    reader.readAsDataURL(file);
-  }
-
   function drawCoverImage(img){
     const cw = canvas.width, ch = canvas.height;
     const scale = Math.max(cw / img.width, ch / img.height);
     const dw = img.width * scale;
     const dh = img.height * scale;
+    ctx.clearRect(0, 0, cw, ch);
+    ctx.fillStyle = '#0d0e11';
+    ctx.fillRect(0, 0, cw, ch);
     ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
   }
 
-  function coatingRegion(){
-    const surfaceMap = {
-      'Garage Floor': { x:.06, y:.52, w:.88, h:.36 },
-      Patio: { x:.05, y:.48, w:.9, h:.38 },
-      Tile: { x:.08, y:.45, w:.84, h:.4 },
-      'Tub or Vanity': { x:.16, y:.38, w:.68, h:.34 },
-      Countertop: { x:.08, y:.42, w:.84, h:.3 },
-      Cabinets: { x:.1, y:.16, w:.8, h:.58 }
-    };
-    return surfaceMap[activeSurface] || surfaceMap['Garage Floor'];
-  }
-
-  function drawCoatingMask(f, highlighted){
-    const r = coatingRegion();
-    const x = canvas.width * r.x, y = canvas.height * r.y;
-    const w = canvas.width * r.w, h = canvas.height * r.h;
-    const radius = activeSurface === 'Cabinets' ? 22 : 34;
-
-    ctx.save();
-    roundedRect(x, y, w, h, radius);
-    ctx.clip();
-
-    const grad = ctx.createLinearGradient(x, y, x + w, y + h);
-    f.colors.forEach((color, i) => grad.addColorStop(i / Math.max(1, f.colors.length - 1), color));
-    ctx.globalAlpha = f.alpha;
-    ctx.globalCompositeOperation = f.blend;
-    ctx.fillStyle = grad;
-    ctx.fillRect(x, y, w, h);
-
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.globalAlpha = gloss.value === 'matte' ? .12 : gloss.value === 'gloss' ? .42 : .24;
-    const shine = ctx.createLinearGradient(x, y, x + w, y + h * .45);
-    shine.addColorStop(0, 'rgba(255,255,255,0.45)');
-    shine.addColorStop(.42, 'rgba(255,255,255,0.04)');
-    shine.addColorStop(1, 'rgba(255,255,255,0)');
-    ctx.fillStyle = shine;
-    ctx.fillRect(x, y, w, h);
-
-    if (f.specks || gloss.value === 'non-slip') drawSpecks(x, y, w, h, f.colors, gloss.value === 'non-slip' ? 900 : 560);
-    if (f.metallic) drawMetallic(x, y, w, h, f.colors);
-    ctx.restore();
-
-    ctx.save();
-    roundedRect(x, y, w, h, radius);
-    ctx.strokeStyle = highlighted ? 'rgba(240,28,40,0.75)' : 'rgba(255,255,255,0.18)';
-    ctx.lineWidth = highlighted ? 4 : 2;
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  function drawSpecks(x, y, w, h, colors, count){
-    for (let i = 0; i < count; i++) {
-      ctx.globalAlpha = .2 + ((i * 13) % 50) / 100;
-      ctx.fillStyle = colors[(i * 7) % colors.length];
-      const px = x + ((i * 37) % w);
-      const py = y + ((i * 53) % h);
-      const size = 1.2 + ((i * 11) % 6);
-      ctx.fillRect(px, py, size, size * (0.65 + ((i * 3) % 5) / 10));
-    }
-    ctx.globalAlpha = 1;
-  }
-
-  function drawMetallic(x, y, w, h, colors){
-    ctx.globalAlpha = .2;
-    for (let i = 0; i < 9; i++) {
-      const cx = x + w * ((i + 1) / 10);
-      const grad = ctx.createRadialGradient(cx, y + h * ((i % 4) / 3), 0, cx, y + h * .55, w * .32);
-      grad.addColorStop(0, colors[(i + 1) % colors.length]);
-      grad.addColorStop(1, 'rgba(255,255,255,0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(x, y, w, h);
-    }
-    ctx.globalAlpha = 1;
-  }
-
-  function roundedRect(x, y, w, h, r){
-    const rr = Math.min(r, w / 2, h / 2);
-    ctx.beginPath();
-    ctx.moveTo(x + rr, y);
-    ctx.arcTo(x + w, y, x + w, y + h, rr);
-    ctx.arcTo(x + w, y + h, x, y + h, rr);
-    ctx.arcTo(x, y + h, x, y, rr);
-    ctx.arcTo(x, y, x + w, y, rr);
-    ctx.closePath();
-  }
-
-  function drawLabels(f){
-    ctx.save();
-    ctx.fillStyle = 'rgba(8,9,11,0.78)';
-    ctx.fillRect(0, canvas.height - 92, canvas.width, 92);
-    ctx.fillStyle = '#f1f2f5';
-    ctx.font = '700 30px Outfit, Arial, sans-serif';
-    ctx.fillText(`${activeSurface} - ${f.name}`, 40, canvas.height - 48);
-    ctx.fillStyle = '#aab0ba';
-    ctx.font = '500 18px Outfit, Arial, sans-serif';
-    ctx.fillText(`Topcoat: ${gloss.options[gloss.selectedIndex].text} | Precision Coatings of Texas preview`, 40, canvas.height - 20);
-    ctx.restore();
-  }
-
-  function renderPreview(highlighted){
-    const f = selectedFinish();
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#0d0e11';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    if (projectImage) {
-      drawCoverImage(projectImage);
-      ctx.fillStyle = 'rgba(8,9,11,0.1)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      drawCoatingMask(f, highlighted);
-      drawLabels(f);
-      downloadBtn.disabled = false;
+  function drawImageFromDataUrl(dataUrl, done){
+    const img = new Image();
+    img.onload = () => {
+      drawCoverImage(img);
       empty.style.display = 'none';
-    } else {
-      downloadBtn.disabled = true;
-      empty.style.display = 'grid';
+      downloadBtn.disabled = false;
+      if (done) done();
+    };
+    img.onerror = () => setStatus('The generated image could not be displayed.', 'TRY AGAIN');
+    img.src = dataUrl;
+  }
+
+  function fileToOptimizedDataUrl(file){
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const maxSide = 1200;
+          const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+          const work = document.createElement('canvas');
+          work.width = Math.round(img.width * scale);
+          work.height = Math.round(img.height * scale);
+          const workCtx = work.getContext('2d');
+          workCtx.drawImage(img, 0, 0, work.width, work.height);
+          resolve(work.toDataURL('image/png'));
+        };
+        img.onerror = () => reject(new Error('This image could not be loaded in the browser.'));
+        img.src = reader.result;
+      };
+      reader.onerror = () => reject(new Error('This image could not be read.'));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function loadFile(file){
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      setStatus('Please upload an image file.', 'TRY AGAIN');
+      return;
     }
-    updatePreview();
+
+    try {
+      title.textContent = file.name;
+      setStatus('Loading photo...', 'WORKING');
+      projectDataUrl = await fileToOptimizedDataUrl(file);
+      projectImage = new Image();
+      projectImage.onload = () => {
+        drawCoverImage(projectImage);
+        empty.style.display = 'none';
+        generatedDataUrl = '';
+        downloadBtn.disabled = true;
+        setStatus('Photo loaded. Click Generate Preview to create a new AI image.', 'READY');
+      };
+      projectImage.onerror = () => setStatus('This image could not be displayed.', 'TRY AGAIN');
+      projectImage.src = projectDataUrl;
+    } catch (err) {
+      setStatus(err.message || 'This image could not be loaded.', 'TRY AGAIN');
+    }
+  }
+
+  async function generatePreview(){
+    if (!projectDataUrl) {
+      setStatus('Upload a project photo first, then generate the preview.', 'PHOTO NEEDED');
+      return;
+    }
+
+    const f = selectedFinish();
+    const payload = {
+      image: projectDataUrl,
+      surface: activeSurface,
+      finish: f.name,
+      topcoat: gloss.options[gloss.selectedIndex].text
+    };
+
+    generateBtn.disabled = true;
+    downloadBtn.disabled = true;
+    setStatus('Generating a new AI preview image...', 'WORKING');
+
+    try {
+      const res = await fetch('/api/generate-preview', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.image) {
+        throw new Error(data.error || 'The AI preview route did not return an image.');
+      }
+      generatedDataUrl = data.image;
+      drawImageFromDataUrl(generatedDataUrl, () => {
+        setStatus('AI preview generated. Download it or try another finish.', 'DONE');
+      });
+    } catch (err) {
+      if (projectImage) drawCoverImage(projectImage);
+      downloadBtn.disabled = true;
+      setStatus(`${err.message} Make sure the site is deployed on Vercel with OPENAI_API_KEY set.`, 'API NEEDED');
+    } finally {
+      generateBtn.disabled = false;
+    }
   }
 
   upload.addEventListener('change', e => loadFile(e.target.files[0]));
-  finish.addEventListener('change', () => renderPreview(false));
-  gloss.addEventListener('change', () => renderPreview(false));
+  finish.addEventListener('change', updatePreview);
+  gloss.addEventListener('change', updatePreview);
   surfaceButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       surfaceButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       activeSurface = btn.dataset.value;
-      renderPreview(false);
     });
   });
-  generateBtn.addEventListener('click', () => {
-    if (!projectImage) {
-      setStatus('Upload a project photo first, then generate the preview.', 'PHOTO NEEDED');
-      return;
-    }
-    renderPreview(true);
-    setStatus('Preview generated from the uploaded photo and selected finish.', 'DONE');
-  });
+  generateBtn.addEventListener('click', generatePreview);
   downloadBtn.addEventListener('click', () => {
+    if (!generatedDataUrl) return;
     const a = document.createElement('a');
-    a.href = canvas.toDataURL('image/png');
-    a.download = 'precision-coatings-preview.png';
+    a.href = generatedDataUrl;
+    a.download = 'precision-coatings-ai-preview.png';
     a.click();
   });
   updatePreview();
