@@ -846,12 +846,11 @@ footer { padding:70px clamp(20px,4vw,48px) 36px; border-top:1px solid var(--bord
     <div class="sec-head rv">
       <div class="sec-kicker">Signature Collections</div>
       <h2 class="sec-title">Choose your <span class="thin">finish.</span></h2>
-      <p class="sec-sub">Flake, metallic, solid, stain, multi-spec & natural accent systems — these are starting points. Custom color matching available on every job.</p>
+      <p class="sec-sub">Flake, solid, stain, multi-spec & natural accent systems — these are starting points. Custom color matching available on every job.</p>
     </div>
     <div class="color-filters rv" role="group" aria-label="Filter colors by collection">
       <button class="cf-btn active" onclick="filterColors('all',this)">All</button>
       <button class="cf-btn" onclick="filterColors('flake',this)">Flake</button>
-      <button class="cf-btn" onclick="filterColors('metallic',this)">Metallic</button>
       <button class="cf-btn" onclick="filterColors('solid',this)">Solid</button>
       <button class="cf-btn" onclick="filterColors('stain',this)">Stain</button>
       <button class="cf-btn" onclick="filterColors('natural',this)">Natural Accent</button>
@@ -913,22 +912,6 @@ footer { padding:70px clamp(20px,4vw,48px) 36px; border-top:1px solid var(--bord
       <div class="swatch" data-cat="flake" onclick="chatAbout('Blizzard marble flake floor')">
         <div class="swatch-chip"><img src="assets/color-swatches/flake-blizzard.png" alt="Blizzard marble flake texture swatch" loading="lazy"></div>
         <div class="swatch-meta"><div class="swatch-name">Blizzard</div><div class="swatch-cat">Flake · Marble</div></div>
-      </div>
-      <div class="swatch" data-cat="metallic" onclick="chatAbout('Chrome Silver metallic epoxy')">
-        <div class="swatch-chip" style="background:linear-gradient(125deg,#d8dce2 0%,#888e98 30%,#c8ccd4 50%,#6a7078 70%,#b8bcc4 100%);"></div>
-        <div class="swatch-meta"><div class="swatch-name">Chrome Silver</div><div class="swatch-cat">Metallic</div></div>
-      </div>
-      <div class="swatch" data-cat="metallic" onclick="chatAbout('Crimson metallic epoxy floor')">
-        <div class="swatch-chip" style="background:linear-gradient(125deg,#8a1018 0%,#d4141f 35%,#6a0a10 60%,#b01620 85%,#4a060a 100%);"></div>
-        <div class="swatch-meta"><div class="swatch-name">Crimson Fire</div><div class="swatch-cat">Metallic</div></div>
-      </div>
-      <div class="swatch" data-cat="metallic" onclick="chatAbout('Midnight Blue metallic epoxy')">
-        <div class="swatch-chip" style="background:linear-gradient(125deg,#141a3a 0%,#2a3a7a 35%,#0e1228 60%,#22306a 85%,#0a0e20 100%);"></div>
-        <div class="swatch-meta"><div class="swatch-name">Midnight Blue</div><div class="swatch-cat">Metallic</div></div>
-      </div>
-      <div class="swatch" data-cat="metallic" onclick="chatAbout('Copper Canyon metallic floor')">
-        <div class="swatch-chip" style="background:linear-gradient(125deg,#6a3a1a 0%,#c87838 35%,#4a280e 60%,#a86028 85%,#3a1e0a 100%);"></div>
-        <div class="swatch-meta"><div class="swatch-name">Copper Canyon</div><div class="swatch-cat">Metallic</div></div>
       </div>
       <div class="swatch" data-cat="solid" onclick="chatAbout('Onyx Black solid color floor')">
         <div class="swatch-chip" style="background:linear-gradient(135deg,#16171a 0%,#26282e 50%,#101114 100%);"></div>
@@ -1126,8 +1109,6 @@ footer { padding:70px clamp(20px,4vw,48px) 36px; border-top:1px solid var(--bord
             <option value="quicksilver">Quicksilver Flake</option>
             <option value="stonehenge">Stonehenge Flake</option>
             <option value="shoreline">Shoreline Flake</option>
-            <option value="chrome">Chrome Silver Metallic</option>
-            <option value="copper">Copper Canyon Metallic</option>
             <option value="slate">Slate Gray Solid</option>
             <option value="pearl">Pearl White Solid</option>
             <option value="texas-sand">Texas Sand Natural Accent</option>
@@ -1439,7 +1420,6 @@ function filterColors(cat, btn){
     flake:['#25282d','#dad8d0','#868b91','#f6f1e6'],
     multispec:['#34383d','#c6c3b8','#7e8587','#ece6d9'],
     natural:['#8a704c','#d3bd8d','#5e513f','#f0d9aa'],
-    metallic:['#4d545e','#c7ccd2','#828a95','#f4f6f8'],
     solid:['#30343a','#626872','#171a1f','#b7bcc2'],
     stain:['#3a2417','#7b4b2b','#a76a3a','#20130c']
   };
@@ -1482,8 +1462,6 @@ function filterColors(cat, btn){
     quicksilver: { name:'Quicksilver Flake', colors:['#2d3035','#f2f3f4','#8e949d','#111317'] },
     stonehenge: { name:'Stonehenge Flake', colors:['#333431','#d5d0c3','#8f8a7c','#f6f0df'] },
     shoreline: { name:'Shoreline Flake', colors:['#4c5962','#e3ded1','#a8b4ba','#26333b'] },
-    chrome: { name:'Chrome Silver Metallic', colors:['#59606a','#d9dde3','#8b929d','#f7f9fb'] },
-    copper: { name:'Copper Canyon Metallic', colors:['#522812','#c87838','#7c421e','#f0a15a'] },
     slate: { name:'Slate Gray Solid', colors:['#30343a','#5f6670','#1e2228'] },
     pearl: { name:'Pearl White Solid', colors:['#e9e5dc','#f8f6ef','#cfc9bd'] },
     'texas-sand': { name:'Texas Sand Natural Accent', colors:['#d2bd90','#a98758','#f0ddb3','#7f643d'] },
