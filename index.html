@@ -513,6 +513,79 @@ footer { padding:70px clamp(20px,4vw,48px) 36px; border-top:1px solid var(--bord
 @media (max-width:1080px) { .swatches { grid-template-columns:repeat(4,1fr); } }
 @media (max-width:640px)  { .swatches { grid-template-columns:repeat(2,1fr); } }
 
+/* Project visualizer */
+.visualizer-band {
+  background:
+    radial-gradient(ellipse 70% 70% at 82% 18%, rgba(212,20,31,0.13), transparent 58%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+  border-block:1px solid var(--border);
+}
+.viz-shell { display:grid; grid-template-columns:minmax(320px, 0.92fr) minmax(420px, 1.08fr); gap:24px; align-items:start; }
+.viz-panel, .viz-stage {
+  background:rgba(19,20,25,0.72); border:1px solid var(--border2);
+  border-radius:18px; box-shadow:0 24px 70px rgba(0,0,0,0.32);
+}
+.viz-panel { padding:24px; }
+.viz-row { margin-bottom:18px; }
+.viz-label {
+  display:block; font-size:10.5px; font-weight:700; letter-spacing:2.1px;
+  color:var(--chrome); text-transform:uppercase; margin-bottom:9px;
+}
+.viz-upload {
+  display:flex; align-items:center; justify-content:center; min-height:132px;
+  border:1.5px dashed rgba(255,255,255,0.2); border-radius:14px;
+  background:rgba(255,255,255,0.035); cursor:pointer; text-align:center;
+  transition:border-color .2s, background .2s, transform .2s var(--ease);
+}
+.viz-upload:hover { border-color:rgba(212,20,31,0.55); background:rgba(212,20,31,0.08); transform:translateY(-2px); }
+.viz-upload input { position:absolute; opacity:0; pointer-events:none; }
+.viz-upload strong { display:block; color:var(--white); font-size:16px; margin-bottom:5px; }
+.viz-upload span { color:var(--muted); font-size:12.5px; }
+.viz-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; }
+.viz-choice {
+  min-height:46px; padding:10px 12px; border-radius:12px;
+  border:1px solid var(--border2); background:rgba(255,255,255,0.035);
+  color:var(--silver); font-family:var(--font); font-size:12.5px; font-weight:650;
+  cursor:pointer; transition:all .2s;
+}
+.viz-choice:hover { color:var(--white); border-color:rgba(255,255,255,0.25); }
+.viz-choice.active { background:var(--red); border-color:var(--red); color:#fff; box-shadow:0 10px 26px var(--red-glow); }
+.viz-select {
+  width:100%; min-height:46px; border-radius:12px; border:1px solid var(--border2);
+  background:var(--bg2); color:var(--white); padding:0 13px; font-family:var(--font);
+  font-size:13.5px; outline:none;
+}
+.viz-finish-preview {
+  min-height:74px; border-radius:14px; border:1px solid var(--border);
+  background:linear-gradient(135deg,#3e4148,#a9adb5); position:relative; overflow:hidden;
+}
+.viz-finish-preview::after {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(circle at 22% 35%, rgba(255,255,255,0.32) 0 2px, transparent 3px),
+    radial-gradient(circle at 72% 62%, rgba(0,0,0,0.22) 0 2px, transparent 3px);
+  background-size:34px 34px, 28px 28px; opacity:.72;
+}
+.viz-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:22px; }
+.viz-note { font-size:11.5px; color:var(--muted); line-height:1.6; margin-top:14px; }
+.viz-stage { padding:18px; }
+.viz-canvas-wrap {
+  position:relative; min-height:460px; display:grid; place-items:center;
+  border-radius:14px; overflow:hidden; background:#0a0b0e; border:1px solid var(--border);
+}
+#visualizerCanvas { width:100%; max-height:620px; display:block; background:#0d0e11; }
+.viz-empty {
+  position:absolute; inset:0; display:grid; place-items:center; text-align:center;
+  padding:28px; color:var(--muted); background:
+    linear-gradient(135deg, rgba(255,255,255,0.035), transparent),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 18px);
+}
+.viz-empty strong { display:block; color:var(--white); font-size:18px; margin-bottom:6px; }
+.viz-status {
+  min-height:22px; margin-top:14px; font-size:12.5px; color:var(--chrome);
+  display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+}
+.viz-status span { color:var(--red2); font-family:var(--mono); font-size:11px; }
+
 /* ═══════════════ RESPONSIVE ═══════════════ */
 @media (max-width: 1080px) {
   .nav-links { display:none; }
@@ -528,6 +601,7 @@ footer { padding:70px clamp(20px,4vw,48px) 36px; border-top:1px solid var(--bord
   .foot-grid { grid-template-columns:1fr 1fr; gap:32px; }
   .cta-band { flex-direction:column; text-align:center; }
   .cta-actions { justify-content:center; }
+  .viz-shell { grid-template-columns:1fr; }
 }
 @media (max-width: 640px) {
   .nav-phone { display:none; }
@@ -546,6 +620,9 @@ footer { padding:70px clamp(20px,4vw,48px) 36px; border-top:1px solid var(--bord
   .chat-fab-wrap { bottom:76px; }
   footer { padding-bottom:90px; }
   .ba-slider { aspect-ratio:4/3; }
+  .viz-panel, .viz-stage { padding:14px; border-radius:14px; }
+  .viz-grid { grid-template-columns:1fr; }
+  .viz-canvas-wrap { min-height:300px; }
 }
 </style>
 </head>
@@ -570,6 +647,7 @@ footer { padding:70px clamp(20px,4vw,48px) 36px; border-top:1px solid var(--bord
     <li><a href="#services">Services</a></li>
     <li><a href="#gallery">Gallery</a></li>
     <li><a href="#colors">Colors</a></li>
+    <li><a href="#visualizer">Visualizer</a></li>
     <li><a href="#process">Process</a></li>
     <li><a href="#reviews">Reviews</a></li>
   </ul>
@@ -597,6 +675,7 @@ footer { padding:70px clamp(20px,4vw,48px) 36px; border-top:1px solid var(--bord
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         Get Free Estimate
       </button>
+      <a href="#visualizer" class="btn btn-red btn-lg">Try Visualizer</a>
       <a href="#transform" class="btn btn-ghost btn-lg">See Transformations</a>
     </div>
     <div class="hero-proof">
@@ -986,7 +1065,93 @@ footer { padding:70px clamp(20px,4vw,48px) 36px; border-top:1px solid var(--bord
   </div>
 </section>
 
-<!-- ════════ PROCESS ════════ -->
+<!-- PROJECT VISUALIZER -->
+<section id="visualizer" class="visualizer-band">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="sec-kicker">Project Visualizer</div>
+      <h2 class="sec-title">Upload a photo.<br><span class="thin">Preview the finish.</span></h2>
+      <p class="sec-sub">Choose a surface, finish, and gloss level, then generate a preview image clients can use to picture the requested work before scheduling an estimate.</p>
+    </div>
+    <div class="viz-shell">
+      <div class="viz-panel rv">
+        <div class="viz-row">
+          <label class="viz-label" for="visualizerUpload">Project Photo</label>
+          <label class="viz-upload" id="visualizerDrop">
+            <input id="visualizerUpload" type="file" accept="image/*">
+            <span>
+              <strong id="visualizerUploadTitle">Upload a room, garage, patio, tub, or cabinet photo</strong>
+              <span id="visualizerUploadHint">JPG, PNG, or HEIC from a phone works best.</span>
+            </span>
+          </label>
+        </div>
+
+        <div class="viz-row">
+          <span class="viz-label">Surface</span>
+          <div class="viz-grid" id="visualizerSurface">
+            <button class="viz-choice active" type="button" data-value="Garage Floor">Garage Floor</button>
+            <button class="viz-choice" type="button" data-value="Patio">Patio</button>
+            <button class="viz-choice" type="button" data-value="Tile">Tile</button>
+            <button class="viz-choice" type="button" data-value="Tub or Vanity">Tub or Vanity</button>
+            <button class="viz-choice" type="button" data-value="Countertop">Countertop</button>
+            <button class="viz-choice" type="button" data-value="Cabinets">Cabinets</button>
+          </div>
+        </div>
+
+        <div class="viz-row">
+          <label class="viz-label" for="visualizerFinish">Finish</label>
+          <select class="viz-select" id="visualizerFinish">
+            <option value="quicksilver">Quicksilver Flake</option>
+            <option value="stonehenge">Stonehenge Flake</option>
+            <option value="shoreline">Shoreline Flake</option>
+            <option value="chrome">Chrome Silver Metallic</option>
+            <option value="copper">Copper Canyon Metallic</option>
+            <option value="slate">Slate Gray Solid</option>
+            <option value="pearl">Pearl White Solid</option>
+            <option value="texas-sand">Texas Sand Natural Accent</option>
+            <option value="walnut">Walnut Stain</option>
+          </select>
+        </div>
+
+        <div class="viz-row">
+          <label class="viz-label" for="visualizerGloss">Topcoat</label>
+          <select class="viz-select" id="visualizerGloss">
+            <option value="satin">Satin</option>
+            <option value="gloss">High Gloss</option>
+            <option value="matte">Matte</option>
+            <option value="non-slip">Non-Slip Texture</option>
+          </select>
+        </div>
+
+        <div class="viz-row">
+          <span class="viz-label">Selected Look</span>
+          <div class="viz-finish-preview" id="visualizerFinishPreview"></div>
+        </div>
+
+        <div class="viz-actions">
+          <button class="btn btn-red" type="button" id="visualizerGenerate">Generate Preview</button>
+          <button class="btn btn-ghost" type="button" id="visualizerDownload" disabled>Download Image</button>
+        </div>
+        <p class="viz-note">Preview images are for planning only. Final color, texture, masking, and coverage are confirmed during the free on-site estimate.</p>
+      </div>
+
+      <div class="viz-stage rv">
+        <div class="viz-canvas-wrap">
+          <canvas id="visualizerCanvas" width="1280" height="900" aria-label="Generated coating preview"></canvas>
+          <div class="viz-empty" id="visualizerEmpty">
+            <div>
+              <strong>Your generated preview appears here.</strong>
+              <span>Upload a project photo and click Generate Preview.</span>
+            </div>
+          </div>
+        </div>
+        <div class="viz-status" id="visualizerStatus">Waiting for a project photo. <span>LOCAL PREVIEW</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
 <section id="process" class="process-band">
   <div class="wrap">
     <div class="sec-head rv">
@@ -1206,6 +1371,228 @@ function filterColors(cat, btn){
 }
 
 /* ══════ CHAT ══════ */
+/* Project visualizer */
+(function(){
+  const canvas = document.getElementById('visualizerCanvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  const upload = document.getElementById('visualizerUpload');
+  const title = document.getElementById('visualizerUploadTitle');
+  const status = document.getElementById('visualizerStatus');
+  const empty = document.getElementById('visualizerEmpty');
+  const finish = document.getElementById('visualizerFinish');
+  const gloss = document.getElementById('visualizerGloss');
+  const finishPreview = document.getElementById('visualizerFinishPreview');
+  const generateBtn = document.getElementById('visualizerGenerate');
+  const downloadBtn = document.getElementById('visualizerDownload');
+  const surfaceButtons = document.querySelectorAll('#visualizerSurface .viz-choice');
+  let projectImage = null;
+  let activeSurface = 'Garage Floor';
+
+  const finishes = {
+    quicksilver: { name:'Quicksilver Flake', colors:['#2d3035','#f2f3f4','#8e949d','#111317'], blend:'source-atop', alpha:.58, specks:true },
+    stonehenge: { name:'Stonehenge Flake', colors:['#333431','#d5d0c3','#8f8a7c','#f6f0df'], blend:'source-atop', alpha:.56, specks:true },
+    shoreline: { name:'Shoreline Flake', colors:['#4c5962','#e3ded1','#a8b4ba','#26333b'], blend:'source-atop', alpha:.54, specks:true },
+    chrome: { name:'Chrome Silver Metallic', colors:['#59606a','#d9dde3','#8b929d','#f7f9fb'], blend:'screen', alpha:.44, metallic:true },
+    copper: { name:'Copper Canyon Metallic', colors:['#522812','#c87838','#7c421e','#f0a15a'], blend:'overlay', alpha:.46, metallic:true },
+    slate: { name:'Slate Gray Solid', colors:['#30343a','#5f6670','#1e2228'], blend:'source-atop', alpha:.52 },
+    pearl: { name:'Pearl White Solid', colors:['#e9e5dc','#f8f6ef','#cfc9bd'], blend:'screen', alpha:.5 },
+    'texas-sand': { name:'Texas Sand Natural Accent', colors:['#d2bd90','#a98758','#f0ddb3','#7f643d'], blend:'overlay', alpha:.5, specks:true },
+    walnut: { name:'Walnut Stain', colors:['#3b2416','#6f4327','#9a6335','#24160d'], blend:'multiply', alpha:.34, metallic:true }
+  };
+
+  function setStatus(message, tag){
+    status.innerHTML = `${message} <span>${tag || 'LOCAL PREVIEW'}</span>`;
+  }
+
+  function selectedFinish(){
+    return finishes[finish.value] || finishes.quicksilver;
+  }
+
+  function updatePreview(){
+    const f = selectedFinish();
+    finishPreview.style.background = `linear-gradient(135deg, ${f.colors.join(',')})`;
+  }
+
+  function loadFile(file){
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      setStatus('Please upload an image file.', 'TRY AGAIN');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        projectImage = img;
+        title.textContent = file.name;
+        empty.style.display = 'none';
+        renderPreview(false);
+        setStatus('Photo loaded. Choose a finish and generate a preview.', 'READY');
+      };
+      img.onerror = () => setStatus('This image could not be loaded in the browser.', 'TRY AGAIN');
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function drawCoverImage(img){
+    const cw = canvas.width, ch = canvas.height;
+    const scale = Math.max(cw / img.width, ch / img.height);
+    const dw = img.width * scale;
+    const dh = img.height * scale;
+    ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+  }
+
+  function coatingRegion(){
+    const surfaceMap = {
+      'Garage Floor': { x:.06, y:.52, w:.88, h:.36 },
+      Patio: { x:.05, y:.48, w:.9, h:.38 },
+      Tile: { x:.08, y:.45, w:.84, h:.4 },
+      'Tub or Vanity': { x:.16, y:.38, w:.68, h:.34 },
+      Countertop: { x:.08, y:.42, w:.84, h:.3 },
+      Cabinets: { x:.1, y:.16, w:.8, h:.58 }
+    };
+    return surfaceMap[activeSurface] || surfaceMap['Garage Floor'];
+  }
+
+  function drawCoatingMask(f, highlighted){
+    const r = coatingRegion();
+    const x = canvas.width * r.x, y = canvas.height * r.y;
+    const w = canvas.width * r.w, h = canvas.height * r.h;
+    const radius = activeSurface === 'Cabinets' ? 22 : 34;
+
+    ctx.save();
+    roundedRect(x, y, w, h, radius);
+    ctx.clip();
+
+    const grad = ctx.createLinearGradient(x, y, x + w, y + h);
+    f.colors.forEach((color, i) => grad.addColorStop(i / Math.max(1, f.colors.length - 1), color));
+    ctx.globalAlpha = f.alpha;
+    ctx.globalCompositeOperation = f.blend;
+    ctx.fillStyle = grad;
+    ctx.fillRect(x, y, w, h);
+
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = gloss.value === 'matte' ? .12 : gloss.value === 'gloss' ? .42 : .24;
+    const shine = ctx.createLinearGradient(x, y, x + w, y + h * .45);
+    shine.addColorStop(0, 'rgba(255,255,255,0.45)');
+    shine.addColorStop(.42, 'rgba(255,255,255,0.04)');
+    shine.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = shine;
+    ctx.fillRect(x, y, w, h);
+
+    if (f.specks || gloss.value === 'non-slip') drawSpecks(x, y, w, h, f.colors, gloss.value === 'non-slip' ? 900 : 560);
+    if (f.metallic) drawMetallic(x, y, w, h, f.colors);
+    ctx.restore();
+
+    ctx.save();
+    roundedRect(x, y, w, h, radius);
+    ctx.strokeStyle = highlighted ? 'rgba(240,28,40,0.75)' : 'rgba(255,255,255,0.18)';
+    ctx.lineWidth = highlighted ? 4 : 2;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawSpecks(x, y, w, h, colors, count){
+    for (let i = 0; i < count; i++) {
+      ctx.globalAlpha = .2 + ((i * 13) % 50) / 100;
+      ctx.fillStyle = colors[(i * 7) % colors.length];
+      const px = x + ((i * 37) % w);
+      const py = y + ((i * 53) % h);
+      const size = 1.2 + ((i * 11) % 6);
+      ctx.fillRect(px, py, size, size * (0.65 + ((i * 3) % 5) / 10));
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawMetallic(x, y, w, h, colors){
+    ctx.globalAlpha = .2;
+    for (let i = 0; i < 9; i++) {
+      const cx = x + w * ((i + 1) / 10);
+      const grad = ctx.createRadialGradient(cx, y + h * ((i % 4) / 3), 0, cx, y + h * .55, w * .32);
+      grad.addColorStop(0, colors[(i + 1) % colors.length]);
+      grad.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(x, y, w, h);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function roundedRect(x, y, w, h, r){
+    const rr = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + rr, y);
+    ctx.arcTo(x + w, y, x + w, y + h, rr);
+    ctx.arcTo(x + w, y + h, x, y + h, rr);
+    ctx.arcTo(x, y + h, x, y, rr);
+    ctx.arcTo(x, y, x + w, y, rr);
+    ctx.closePath();
+  }
+
+  function drawLabels(f){
+    ctx.save();
+    ctx.fillStyle = 'rgba(8,9,11,0.78)';
+    ctx.fillRect(0, canvas.height - 92, canvas.width, 92);
+    ctx.fillStyle = '#f1f2f5';
+    ctx.font = '700 30px Outfit, Arial, sans-serif';
+    ctx.fillText(`${activeSurface} - ${f.name}`, 40, canvas.height - 48);
+    ctx.fillStyle = '#aab0ba';
+    ctx.font = '500 18px Outfit, Arial, sans-serif';
+    ctx.fillText(`Topcoat: ${gloss.options[gloss.selectedIndex].text} | Precision Coatings of Texas preview`, 40, canvas.height - 20);
+    ctx.restore();
+  }
+
+  function renderPreview(highlighted){
+    const f = selectedFinish();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#0d0e11';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    if (projectImage) {
+      drawCoverImage(projectImage);
+      ctx.fillStyle = 'rgba(8,9,11,0.1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      drawCoatingMask(f, highlighted);
+      drawLabels(f);
+      downloadBtn.disabled = false;
+      empty.style.display = 'none';
+    } else {
+      downloadBtn.disabled = true;
+      empty.style.display = 'grid';
+    }
+    updatePreview();
+  }
+
+  upload.addEventListener('change', e => loadFile(e.target.files[0]));
+  finish.addEventListener('change', () => renderPreview(false));
+  gloss.addEventListener('change', () => renderPreview(false));
+  surfaceButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      surfaceButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeSurface = btn.dataset.value;
+      renderPreview(false);
+    });
+  });
+  generateBtn.addEventListener('click', () => {
+    if (!projectImage) {
+      setStatus('Upload a project photo first, then generate the preview.', 'PHOTO NEEDED');
+      return;
+    }
+    renderPreview(true);
+    setStatus('Preview generated from the uploaded photo and selected finish.', 'DONE');
+  });
+  downloadBtn.addEventListener('click', () => {
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = 'precision-coatings-preview.png';
+    a.click();
+  });
+  updatePreview();
+})();
+
 let chatOpen=false, busy=false, hist=[], lead={};
 setTimeout(()=>{ const h=document.getElementById('chatHint'); if(h) h.style.display='none'; }, 7000);
 
