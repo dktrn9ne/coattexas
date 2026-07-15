@@ -1084,13 +1084,7 @@ footer { padding:70px clamp(20px,4vw,48px) 36px; border-top:1px solid var(--bord
         <div class="viz-row">
           <label class="viz-label" for="visualizerFinish">Finish</label>
           <select class="viz-select" id="visualizerFinish">
-            <option value="quicksilver">Quicksilver Flake</option>
-            <option value="stonehenge">Stonehenge Flake</option>
-            <option value="shoreline">Shoreline Flake</option>
-            <option value="slate">Slate Gray Solid</option>
-            <option value="pearl">Pearl White Solid</option>
-            <option value="texas-sand">Texas Sand Natural Accent</option>
-            <option value="walnut">Walnut Stain</option>
+            <option value="">Loading color choices...</option>
           </select>
         </div>
 
@@ -1373,7 +1367,8 @@ function filterColors(cat, btn){
   let generatedDataUrl = '';
   let activeSurface = 'Garage Floor';
 
-  const finishes = {
+  let finishes = {};
+  const fallbackFinishes = {
     quicksilver: { name:'Quicksilver Flake', colors:['#2d3035','#f2f3f4','#8e949d','#111317'] },
     stonehenge: { name:'Stonehenge Flake', colors:['#333431','#d5d0c3','#8f8a7c','#f6f0df'] },
     shoreline: { name:'Shoreline Flake', colors:['#4c5962','#e3ded1','#a8b4ba','#26333b'] },
@@ -1383,17 +1378,73 @@ function filterColors(cat, btn){
     walnut: { name:'Walnut Stain', colors:['#3b2416','#6f4327','#9a6335','#24160d'] }
   };
 
+  const categoryFallbacks = {
+    flake:['#25282d','#dad8d0','#868b91','#f6f1e6'],
+    multispec:['#34383d','#c6c3b8','#7e8587','#ece6d9'],
+    natural:['#8a704c','#d3bd8d','#5e513f','#f0d9aa'],
+    solid:['#30343a','#626872','#171a1f','#b7bcc2'],
+    stain:['#3a2417','#7b4b2b','#a76a3a','#20130c']
+  };
+
+  function slugify(text){
+    return text.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  }
+
+  function buildVisualizerFinishes(){
+    const cards = Array.from(document.querySelectorAll('#swatchGrid .swatch'));
+    const built = {};
+    const options = [];
+
+    cards.forEach((card, index) => {
+      const name = card.querySelector('.swatch-name')?.textContent?.trim();
+      const category = card.querySelector('.swatch-cat')?.textContent?.trim() || card.dataset.cat || '';
+      const chip = card.querySelector('.swatch-chip');
+      if (!name || !chip) return;
+
+      const keyBase = slugify(`${name}-${category || card.dataset.cat || index}`);
+      const key = built[keyBase] ? `${keyBase}-${index}` : keyBase;
+      const img = chip.querySelector('img');
+      const styleBackground = chip.style.background || chip.style.backgroundImage;
+      const catKey = card.dataset.cat || 'multispec';
+
+      built[key] = {
+        name: category ? `${name} ${category.replace(/\s*·\s*/g,' ')}` : name,
+        label: category ? `${name} - ${category}` : name,
+        previewImage: img ? img.getAttribute('src') : '',
+        previewBackground: img ? '' : styleBackground,
+        colors: categoryFallbacks[catKey] || categoryFallbacks.multispec
+      };
+      options.push({ key, label: built[key].label });
+    });
+
+    if (!options.length) {
+      Object.entries(fallbackFinishes).forEach(([key, value]) => {
+        built[key] = value;
+        options.push({ key, label: value.name });
+      });
+    }
+
+    finishes = built;
+    finish.innerHTML = options.map(option => `<option value="${option.key}">${option.label}</option>`).join('');
+  }
+
   function setStatus(message, tag){
     status.innerHTML = `${message} <span>${tag || 'AI PREVIEW'}</span>`;
   }
 
   function selectedFinish(){
-    return finishes[finish.value] || finishes.quicksilver;
+    return finishes[finish.value] || Object.values(finishes)[0] || fallbackFinishes.quicksilver;
   }
 
   function updatePreview(){
     const f = selectedFinish();
-    finishPreview.style.background = `linear-gradient(135deg, ${f.colors.join(',')})`;
+    if (f.previewImage) {
+      finishPreview.style.background = `url("${f.previewImage}") center/cover`;
+    } else if (f.previewBackground) {
+      finishPreview.style.background = f.previewBackground;
+    } else {
+      finishPreview.style.background = `linear-gradient(135deg, ${f.colors.join(',')})`;
+    }
   }
 
   function drawCoverImage(img){
@@ -1527,6 +1578,7 @@ function filterColors(cat, btn){
     a.download = 'precision-coatings-ai-preview.png';
     a.click();
   });
+  buildVisualizerFinishes();
   updatePreview();
 })();
 
