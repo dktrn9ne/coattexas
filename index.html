@@ -710,7 +710,7 @@ footer { padding:70px clamp(20px,4vw,48px) 36px; border-top:1px solid var(--bord
         <div class="bento-arrow" aria-hidden="true">→</div>
         <div class="bento-content">
           <div class="bento-name">Garages</div>
-          <div class="bento-desc">Flake, metallic & solid epoxy systems built for Texas heat, hot tires, and decades of daily use.</div>
+          <div class="bento-desc">Flake, solid epoxy, and natural accent systems built for Texas heat, hot tires, and decades of daily use.</div>
         </div>
       </a>
       <a class="bento-cell b-patio rv" href="#" onclick="chatAbout('Patio coating');return false;">
@@ -1600,7 +1600,7 @@ async function sendUserMsg(txt){
   const sys=`You are the AI estimator and client intake assistant for Precision Coatings of Texas LLC — a professional surface coating and refinishing company in Austin, Texas.
 
 Services offered (the ONLY seven services):
-• Garages — flake, metallic epoxy, solid color, natural accent floor systems
+• Garages — flake, solid color, natural accent floor systems
 • Patios — overlays, stains, non-slip outdoor coatings
 • Tile — epoxy resurfacing over existing tile, no demo needed
 • Tubs — reglazing, chip & rust repair
@@ -1610,7 +1610,7 @@ Services offered (the ONLY seven services):
 
 General pricing (always recommend free on-site estimate):
 • 2-car garage flake system: $1,200–$1,800
-• 2-car garage metallic: $1,800–$2,800
+• 2-car garage natural accent: $1,800–$2,800
 • Patio coating: $3–$6/sq ft
 • Tub reglazing: $450–$700
 • Vanity refinishing: $300–$600
@@ -1657,7 +1657,7 @@ Lead info collected so far: ${JSON.stringify(lead)}`;
     const combo=(txt+' '+reply).toLowerCase();
     let qrs=[];
     if(hist.length<=3) qrs=['Get free estimate','Garage floor','Patio','Tub refinishing'];
-    else if(combo.includes('garage')) qrs=['Flake or metallic?','Price range?','Schedule a visit'];
+    else if(combo.includes('garage')) qrs=['Flake or solid?','Price range?','Schedule a visit'];
     else if(combo.includes('patio')) qrs=['Patio colors?','Timeline?','Get quote'];
     else if(combo.includes('tub')||combo.includes('vanity')) qrs=['How long does it take?','Price range?','Schedule a visit'];
     else if(combo.includes('cabinet')||combo.includes('countertop')) qrs=['How does refinishing work?','Price range?','Get quote'];
